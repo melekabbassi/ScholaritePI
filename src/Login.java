@@ -8,6 +8,7 @@ public class Login extends JFrame{
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JLabel lblImage;
+    private JButton btnIncorrectPassword;
     
     public Login(){
         setTitle("ScolaritéPi");
@@ -17,7 +18,7 @@ public class Login extends JFrame{
         setVisible(true);
         setSize(1080,600);
         setLocationRelativeTo(null);
-        setResizable(false);
+        //setResizable(false);
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40,50,68));
 
@@ -34,6 +35,18 @@ public class Login extends JFrame{
         txtPassword = new JPasswordField();
         txtPassword.setBounds(600,270,300,50);
         add(txtPassword);
+
+        btnIncorrectPassword = new JButton("Incorrect Password");
+        btnIncorrectPassword.setBounds(600,305,300,50);
+        btnIncorrectPassword.setForeground(new java.awt.Color(42,217,152));
+        // transparent Background
+        btnIncorrectPassword.setContentAreaFilled(false);
+        btnIncorrectPassword.setBorderPainted(false);
+        btnIncorrectPassword.setFont(new java.awt.Font("Roboto",2,10));
+        // change cursor when mouse is on the button
+        btnIncorrectPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnIncorrectPassword);
+        
 
         btnLogin = new JButton("Login");
         btnLogin.setBounds(600,390,300,50);
@@ -57,6 +70,7 @@ public class Login extends JFrame{
         btnLogin.setForeground(new java.awt.Color(40,50,68));
         Border border = BorderFactory.createEmptyBorder(50,50,50,50);
         btnLogin.setBorder(border);
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnLogin);
     }
     
