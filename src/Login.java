@@ -9,7 +9,7 @@ public class Login extends JFrame{
     private JButton btnLogin;
     private JLabel lblImage;
     private JButton btnIncorrectPassword;
-    
+
     public Login(){
         setTitle("ScolaritéPi");
         setSize(300,300);
@@ -77,6 +77,7 @@ public class Login extends JFrame{
         lblImage.setBounds(0,0,300,600);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
+
     }
     
     public static void main(String[] args){
