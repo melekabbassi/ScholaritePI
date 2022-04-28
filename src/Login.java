@@ -21,10 +21,6 @@ public class Login extends JFrame{
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40,50,68));
 
-        // lblImage = new JLabel(new ImageIcon("src/images/new-york-gcf16cbb69_1920.jpg"));
-        // lblImage.setBounds(0,0,300,300);
-        // add(lblImage);
-
         lblAppName = new JLabel("ScolaritéPI");
         lblAppName.setBounds(700,100,300,50);
         lblAppName.setForeground(new java.awt.Color(255,255,255));
@@ -42,7 +38,22 @@ public class Login extends JFrame{
         btnLogin = new JButton("Login");
         btnLogin.setBounds(600,390,300,50);
         btnLogin.setBorder(null);
-        btnLogin.setBackground(new java.awt.Color(42,217,152));
+        //change background color when mouse is over
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogin.setBackground(new java.awt.Color(42,217,152));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLogin.setBackground(new java.awt.Color(55,202,147));
+            }
+        });
+
+        //change background color when mouse is clicked
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
         btnLogin.setForeground(new java.awt.Color(40,50,68));
         Border border = BorderFactory.createEmptyBorder(50,50,50,50);
         btnLogin.setBorder(border);
