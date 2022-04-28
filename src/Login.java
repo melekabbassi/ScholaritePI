@@ -22,7 +22,7 @@ public class Login extends JFrame{
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40,50,68));
 
-        lblAppName = new JLabel("ScolaritéPI");
+        lblAppName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
         lblAppName.setBounds(700,100,300,50);
         lblAppName.setForeground(new java.awt.Color(255,255,255));
         lblAppName.setFont(new java.awt.Font("Roboto",2,20));
@@ -72,6 +72,11 @@ public class Login extends JFrame{
         btnLogin.setBorder(border);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnLogin);
+
+        lblImage = new JLabel();
+        lblImage.setBounds(0,0,300,600);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
+        add(lblImage);
     }
     
     public static void main(String[] args){
