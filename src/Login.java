@@ -16,9 +16,10 @@ public class Login extends JFrame{
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setSize(1080,600);
+        //setSize(1080,600);
+        setSize(1280, 720);
         setLocationRelativeTo(null);
-        //setResizable(false);
+        setResizable(false);
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40,50,68));
 
@@ -74,7 +75,7 @@ public class Login extends JFrame{
         add(btnLogin);
 
         lblImage = new JLabel();
-        lblImage.setBounds(0,0,300,600);
+        lblImage.setBounds(0,0,300,720);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
     }
