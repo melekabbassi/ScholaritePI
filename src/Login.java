@@ -77,7 +77,6 @@ public class Login extends JFrame{
         lblImage.setBounds(0,0,300,600);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
-
     }
     
     public static void main(String[] args){
