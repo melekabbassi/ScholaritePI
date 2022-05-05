@@ -81,42 +81,4 @@ public class Login extends JFrame{
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
     }
-
-    private Person authenticate(String email, String password){
-        Person person = null;
-
-        final String DB_URL = "jdbc:mysql://localhost:3306/scholaritepi?characterEncoding=utf8";
-        final String USERNAME = "root";
-        final String PASSWORD = "";
-
-        try{
-            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-
-            String query = "SELECT * FROM person WHERE email = ? AND password = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(4, email);
-            preparedStatement.setString(5, password);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if(resultSet.next()){
-                person = new Person();
-                person.setId(resultSet.getInt("id"));
-                person.setName(resultSet.getString("name"));
-                person.setLastname(resultSet.getString("lastname"));
-                person.setEmail(resultSet.getString("email"));
-                person.setPassword(resultSet.getString("password"));
-                person.setRole(resultSet.getString("role"));
-            }   
-            
-            preparedStatement.close();
-            connection.close();
-
-        }catch(SQLException e){
-            e.printStackTrace();
-            System.out.println("Database connection error");
-        }
-
-        return person;
-    }
 }

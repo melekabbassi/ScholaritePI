@@ -1,16 +1,17 @@
-public class Person {
-    private int id;
-    private String name;
-    private String lastname;
-    private String email;
-    private String password;
-    private String role;
+public abstract class Person  {
+    protected Integer id;
+    protected String name;
+    protected String lastname;
+    protected String email;
+    protected String password;
+    protected String role;
     
-    public Person(int id, String name, String lastname, int age, String email, String role) {
+    public Person(Integer id, String name, String lastname, String email, String password, String role) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.password = password;
         this.role = role;
     }
 
@@ -18,11 +19,11 @@ public class Person {
     public Person() {
     }
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
@@ -65,4 +66,13 @@ public class Person {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public abstract void addPerson();
+
+    public abstract void updatePerson();
+
+    public abstract void deletePerson();
+
+    public abstract void searchPerson();
+
 }
