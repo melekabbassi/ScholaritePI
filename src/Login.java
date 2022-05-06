@@ -23,7 +23,7 @@ public class Login extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
         // background Color 
-        getContentPane().setBackground(new java.awt.Color(40,50,68));
+        getContentPane().setBackground(new java.awt.Color(40, 50, 68));
 
         lblAppName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
         lblAppName.setBounds(700,100,300,50);
@@ -33,10 +33,16 @@ public class Login extends JFrame{
 
         txtUsername = new JTextField();
         txtUsername.setBounds(600, 210, 300, 50);
+        // place holder
+        txtUsername.setText("Email");
+        txtUsername.setForeground(new java.awt.Color(164, 174, 194));
         add(txtUsername);
 
         txtPassword = new JPasswordField();
         txtPassword.setBounds(600,270,300,50);
+        // place holder
+        txtPassword.setText("Password");
+        txtPassword.setForeground(new java.awt.Color(164, 174, 194));
         add(txtPassword);
 
         btnIncorrectPassword = new JButton("Incorrect Password");
@@ -49,7 +55,34 @@ public class Login extends JFrame{
         // change cursor when mouse is on the button
         btnIncorrectPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnIncorrectPassword);
+
+        // delete place holder when user start typing
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsername.setText("");
+            }
+        });
+
+        // delete place holder when user start typing
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPassword.setText("");
+            }
+        });
         
+        // when typing change text color to black
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsername.setForeground(new java.awt.Color(0,0,0));
+            }
+        });
+
+        // when typing change text color to black
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPassword.setForeground(new java.awt.Color(0,0,0));
+            }
+        });
 
         btnLogin = new JButton("Login");
         btnLogin.setBounds(600,390,300,50);
@@ -75,6 +108,20 @@ public class Login extends JFrame{
         btnLogin.setBorder(border);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnLogin);
+        
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                String username = txtUsername.getText();
+                String password = txtPassword.getText();
+                if(username.equals("admin") && password.equals("admin")){
+                    new sideBarGUI();
+                    dispose();
+                }else{
+                    btnIncorrectPassword.setVisible(true);
+                }
+            }
+        });
+        
 
         lblImage = new JLabel();
         lblImage.setBounds(0,0,300,720);
