@@ -14,7 +14,6 @@ public class Login extends JFrame{
 
     public Login(){
         setTitle("ScolaritéPi");
-        setSize(300,300);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -22,7 +21,6 @@ public class Login extends JFrame{
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setResizable(false);
-        // background Color 
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
 
         lblAppName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
@@ -124,7 +122,7 @@ public class Login extends JFrame{
         
 
         lblImage = new JLabel();
-        lblImage.setBounds(0,0,300,720);
+        lblImage.setBounds(0,0,478,720);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
         
