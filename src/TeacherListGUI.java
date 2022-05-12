@@ -126,7 +126,7 @@ public class TeacherListGUI extends JFrame {
 
         // make a table 
         JTable table = new JTable();
-        table.setBounds(290,100,1000,900);
+        table.setBounds(290,100,1000,800);
         // make table transparent and color its borders
         table.setOpaque(false);
         table.setShowGrid(true);
@@ -146,5 +146,27 @@ public class TeacherListGUI extends JFrame {
         lblTableHeader.setBackground(new java.awt.Color(0,0,0));
         lblTableHeader.setBorder(null);
         add(lblTableHeader);
+
+        // make add button
+        JButton btnAdd = new JButton("Add");
+        btnAdd.setBounds(1450,200,280,100);
+        btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+        btnAdd.setFont(new java.awt.Font("Roboto",2,20));
+        btnAdd.setBackground(new java.awt.Color(42,217,152));
+        btnAdd.setBorder(null);
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnAdd);
+
+        // on hover change background color and text color
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+                btnAdd.setBackground(new java.awt.Color(50, 220, 194));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {                
+                btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+                btnAdd.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
     }
 }
