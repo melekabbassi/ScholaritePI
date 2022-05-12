@@ -24,27 +24,27 @@ public class Login extends JFrame{
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
 
         lblAppName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
-        lblAppName.setBounds(700,100,300,50);
+        lblAppName.setBounds(850,100,300,50);
         lblAppName.setForeground(new java.awt.Color(255,255,255));
         lblAppName.setFont(new java.awt.Font("Roboto",2,20));
         add(lblAppName);
 
         txtUsername = new JTextField();
-        txtUsername.setBounds(600, 210, 300, 50);
+        txtUsername.setBounds(750, 210, 300, 50);
         // place holder
         txtUsername.setText("Email");
         txtUsername.setForeground(new java.awt.Color(164, 174, 194));
         add(txtUsername);
 
         txtPassword = new JPasswordField();
-        txtPassword.setBounds(600,270,300,50);
+        txtPassword.setBounds(750,270,300,50);
         // place holder
         txtPassword.setText("Password");
         txtPassword.setForeground(new java.awt.Color(164, 174, 194));
         add(txtPassword);
 
         btnIncorrectPassword = new JButton("Incorrect Password");
-        btnIncorrectPassword.setBounds(600,305,300,50);
+        btnIncorrectPassword.setBounds(750,305,300,50);
         btnIncorrectPassword.setForeground(new java.awt.Color(42,217,152));
         // transparent Background
         btnIncorrectPassword.setContentAreaFilled(false);
@@ -83,8 +83,9 @@ public class Login extends JFrame{
         });
 
         btnLogin = new JButton("Login");
-        btnLogin.setBounds(600,390,300,50);
+        btnLogin.setBounds(750,390,300,50);
         btnLogin.setBorder(null);
+        btnLogin.setBackground(new java.awt.Color(42,217,152));
         //change background color when mouse is over
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
