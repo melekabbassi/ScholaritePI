@@ -1,6 +1,4 @@
 import javax.swing.*;
-
-import java.awt.Dimension;
 import java.sql.*;
 
 public class sideBarGUI extends JFrame {
