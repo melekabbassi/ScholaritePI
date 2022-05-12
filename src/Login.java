@@ -113,7 +113,7 @@ public class Login extends JFrame{
                 String username = txtUsername.getText();
                 String password = txtPassword.getText();
                 if(username.equals("admin") && password.equals("admin")){
-                    new TeacherListGUI();
+                    new sideBarGUI();
                     dispose();
                 }else{
                     btnIncorrectPassword.setVisible(true);

@@ -7,21 +7,24 @@ public class TeacherListGUI extends JFrame {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setSize(1280, 720);
         setLocationRelativeTo(null);
         setResizable(false);
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
 
+        // set window to full screen withou affecting the sideBar
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+
         // make a side bar
         JPanel sideBar = new JPanel();
-        sideBar.setBounds(0,0,270,720);
+        sideBar.setBounds(0,0,270,1080);
         sideBar.setBackground(new java.awt.Color(34, 44, 62));
         add(sideBar);
 
         // make a menu
         JPanel menu = new JPanel();
-        menu.setBounds(0,100,270,600);
+        menu.setBounds(0,100,270,1080);
         menu.setBackground(new java.awt.Color(34, 44, 62));
         add(menu);
         
@@ -92,7 +95,7 @@ public class TeacherListGUI extends JFrame {
 
         // make a logout button
         JButton btnLogout = new JButton("Logout");
-        btnLogout.setBounds(-10,575,280,100);
+        btnLogout.setBounds(-10,950,280,100);
         btnLogout.setForeground(new java.awt.Color(255,255,255));
         btnLogout.setFont(new java.awt.Font("Roboto",2,20));
         btnLogout.setBackground(new java.awt.Color(40,50,68));
