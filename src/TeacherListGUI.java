@@ -1,9 +1,8 @@
 import javax.swing.*;
-import java.sql.*;
 
-public class sideBarGUI extends JFrame {
+public class TeacherListGUI extends JFrame {
     
-    public sideBarGUI() {
+    public TeacherListGUI() {
         setTitle("ScolaritéPi");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,32 +28,15 @@ public class sideBarGUI extends JFrame {
         // make a menu item
         JButton btnTeacherList = new JButton("Teacher List");
         btnTeacherList.setBounds(-30,50,300,50);
-        btnTeacherList.setForeground(new java.awt.Color(164, 174, 194));
+        btnTeacherList.setForeground(new java.awt.Color(34, 44, 62));
         btnTeacherList.setFont(new java.awt.Font("Roboto",2,20));
-        btnTeacherList.setBackground(new java.awt.Color(40,50,68));
+        btnTeacherList.setBackground(new java.awt.Color(42,217,152));
         btnTeacherList.setBorder(null);
         btnTeacherList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnTeacherList);
 
-        // on hover change background color and text color
-        btnTeacherList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTeacherList.setForeground(new java.awt.Color(34, 44, 62));
-                btnTeacherList.setBackground(new java.awt.Color(42,217,152));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTeacherList.setForeground(new java.awt.Color(164, 174, 194));
-                btnTeacherList.setBackground(new java.awt.Color(34, 44, 62));
-            }
-            // on click open teacher list
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new TeacherListGUI();
-                dispose();
-            }
-        });
-
-        // make a menu item
         JButton btnGroupList = new JButton("Group List");
+        // make a menu item
         btnGroupList.setBounds(-30,100,300,50);
         btnGroupList.setForeground(new java.awt.Color(255,255,255));
         btnGroupList.setFont(new java.awt.Font("Roboto",2,20));
@@ -83,13 +65,13 @@ public class sideBarGUI extends JFrame {
         // make a menu item
         JButton btnCourseList = new JButton("Course List");
         btnCourseList.setBounds(-30,150,300,50);
-        btnCourseList.setForeground(new java.awt.Color(34, 44, 62));
+        btnCourseList.setForeground(new java.awt.Color(255,255,255));
         btnCourseList.setFont(new java.awt.Font("Roboto",2,20));
-        btnCourseList.setBackground(new java.awt.Color(42,217,152)); 
+        btnCourseList.setBackground(new java.awt.Color(40,50,68));
         btnCourseList.setBorder(null);
         btnCourseList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnCourseList);
-
+        
         // on hover change background color and text color
         btnCourseList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -98,7 +80,7 @@ public class sideBarGUI extends JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCourseList.setForeground(new java.awt.Color(164, 174, 194));
-        btnCourseList.setBackground(new java.awt.Color(34, 44, 62));
+                btnCourseList.setBackground(new java.awt.Color(34, 44, 62));
             }
             // on click open course list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
