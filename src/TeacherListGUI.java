@@ -8,7 +8,7 @@ public class TeacherListGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         // background Color 
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
 
@@ -124,5 +124,27 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
+        // make a table 
+        JTable table = new JTable();
+        table.setBounds(290,100,1000,900);
+        // make table transparent and color its borders
+        table.setOpaque(false);
+        table.setShowGrid(true);
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42,217,152)));
+        table.setForeground(new java.awt.Color(255,255,255));
+        table.setFont(new java.awt.Font("Roboto",2,20));
+        table.setRowHeight(50);
+        table.setRowSelectionAllowed(false);
+        table.setFocusable(false);
+        add(table);
+
+        // make a table header
+        JLabel lblTableHeader = new JLabel("Teacher List");
+        lblTableHeader.setBounds(290,50,900,50);
+        lblTableHeader.setForeground(new java.awt.Color(164, 174, 194));
+        lblTableHeader.setFont(new java.awt.Font("Roboto",2,30));
+        lblTableHeader.setBackground(new java.awt.Color(0,0,0));
+        lblTableHeader.setBorder(null);
+        add(lblTableHeader);
     }
 }
