@@ -4,6 +4,5 @@ public class Scolaritepi {
         // new sideBarGUI();
         // new TeacherListGUI();
         // new GroupListGUI();
-        // new AddTeacherGUI();
     }
 }
