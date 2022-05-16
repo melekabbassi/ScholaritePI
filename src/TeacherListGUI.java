@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class TeacherListGUI extends JFrame {
-    
+
     public TeacherListGUI() {
         setTitle("ScolaritéPi");
         setLayout(null);
