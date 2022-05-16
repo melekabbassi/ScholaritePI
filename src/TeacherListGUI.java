@@ -147,9 +147,57 @@ public class TeacherListGUI extends JFrame {
         lblTableHeader.setBorder(null);
         add(lblTableHeader);
 
+
+        // make a search bar
+        JTextField txtSearch = new JTextField();
+        txtSearch.setBounds(1450,150,280,50);
+        txtSearch.setForeground(new java.awt.Color(34, 44, 62));
+        txtSearch.setFont(new java.awt.Font("Roboto",2,20));
+        txtSearch.setBackground(new java.awt.Color(255,255,255));
+        txtSearch.setBorder(null);
+        txtSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(txtSearch);
+
+        // make a search button
+        JButton btnSearch = new JButton("Search");
+        btnSearch.setBounds(1450,200,280,50);
+        btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+        btnSearch.setFont(new java.awt.Font("Roboto",2,20));
+        btnSearch.setBackground(new java.awt.Color(42,217,152));
+        btnSearch.setBorder(null);
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnSearch);
+
+        // on hover change background color and text color
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+                btnSearch.setBackground(new java.awt.Color(50, 220, 194));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {                
+                btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+                btnSearch.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
+
+        // on click search teacher
+        // btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         String search = txtSearch.getText();
+        //         try {
+        //             String sql = "SELECT * FROM teacher WHERE name LIKE '%"+search+"%'";
+        //             pst = conn.prepareStatement(sql);
+        //             rs = pst.executeQuery();
+        //             table.setModel(DbUtils.resultSetToTableModel(rs));
+        //         } catch (Exception e) {
+        //             JOptionPane.showMessageDialog(null, e);
+        //         }
+        //     }
+        // });
+
         // make add button
         JButton btnAdd = new JButton("Add");
-        btnAdd.setBounds(1450,200,280,100);
+        btnAdd.setBounds(1450,350,280,100);
         btnAdd.setForeground(new java.awt.Color(34, 44, 62));
         btnAdd.setFont(new java.awt.Font("Roboto",2,20));
         btnAdd.setBackground(new java.awt.Color(42,217,152));
@@ -166,6 +214,75 @@ public class TeacherListGUI extends JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {                
                 btnAdd.setForeground(new java.awt.Color(34, 44, 62));
                 btnAdd.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
+
+        // on click open add teacher page
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //new AddTeacherGUI();
+                dispose();
+            }
+        });
+
+        // make a delete button
+        JButton btnDelete = new JButton("Delete");
+        btnDelete.setBounds(1450,550,280,100);
+        btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+        btnDelete.setFont(new java.awt.Font("Roboto",2,20));
+        btnDelete.setBackground(new java.awt.Color(42,217,152));
+        btnDelete.setBorder(null);
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnDelete);
+
+        // on hover change background color and text color
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+                btnDelete.setBackground(new java.awt.Color(50, 220, 194));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {                
+                btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+                btnDelete.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
+
+        // on click open delete teacher page
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //new DeleteTeacherGUI();
+                dispose();
+            }
+        });
+
+        // make a update button
+
+        JButton btnUpdate = new JButton("Update");
+        btnUpdate.setBounds(1450,750,280,100);
+        btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+        btnUpdate.setFont(new java.awt.Font("Roboto",2,20));
+        btnUpdate.setBackground(new java.awt.Color(42,217,152));
+        btnUpdate.setBorder(null);
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnUpdate);
+
+        // on hover change background color and text color
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+                btnUpdate.setBackground(new java.awt.Color(50, 220, 194));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {                
+                btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+                btnUpdate.setBackground(new java.awt.Color(42,217,152));
+            }
+        });
+
+        // on click open update teacher page
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //new UpdateTeacherGUI();
+                dispose();
             }
         });
     }
