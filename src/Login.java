@@ -13,10 +13,10 @@ public class Login extends JFrame {
     private JButton btnIncorrectPassword;
 
     public Login() {
+
         setTitle("ScolaritéPi");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         // setSize(1080,600);
         setSize(1280, 720);
         setLocationRelativeTo(null);
@@ -127,6 +127,7 @@ public class Login extends JFrame {
         lblImage.setBounds(0, 0, 478, 720);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-york.jpg")));
         add(lblImage);
+        setVisible(true);
 
     }
 
@@ -163,4 +164,5 @@ public class Login extends JFrame {
 
         return user;
     }
+
 }

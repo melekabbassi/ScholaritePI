@@ -8,7 +8,6 @@ public class sideBarGUI extends JFrame {
         setTitle("ScolaritéPi");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
         // background Color
@@ -147,6 +146,6 @@ public class sideBarGUI extends JFrame {
                 dispose();
             }
         });
-
+        setVisible(true);
     }
 }

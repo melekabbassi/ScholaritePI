@@ -11,7 +11,6 @@ public class TeacherListGUI extends JFrame {
         setTitle("ScolaritéPi");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setResizable(true);
@@ -124,7 +123,6 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
-        // on click on logout button take me back to login page
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Login login = new Login();
@@ -297,5 +295,6 @@ public class TeacherListGUI extends JFrame {
                 dispose();
             }
         });
+        setVisible(true);
     }
 }
