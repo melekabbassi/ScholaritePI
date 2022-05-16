@@ -130,7 +130,7 @@ public class Login extends JFrame {
 
     }
 
-    private User getAuthenticatedUser(String email, String password) {
+    private User getAuthenticatedUser(String email, String pass) {
         User user = null;
 
         final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
@@ -144,14 +144,14 @@ public class Login extends JFrame {
             String sql = "SELECT * FROM users WHERE email=? AND pass=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, pass);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 user = new User();
                 user.email = resultSet.getString("email");
-                user.password = resultSet.getString("password");
+                user.password = resultSet.getString("pass");
             }
 
             preparedStatement.close();
