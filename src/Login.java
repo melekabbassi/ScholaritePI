@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.sql.*;
 
 public class Login extends JFrame {
