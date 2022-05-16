@@ -3,6 +3,7 @@ public class Scolaritepi {
         new Login();
         // new sideBarGUI();
         // new TeacherListGUI();
+        //new GroupListGUI();
         //new AddTeacherGUI();
     }
 }

@@ -19,7 +19,7 @@ public class AddTeacherGUI extends JFrame{
                 setTitle("Add Teacher");
                 setSize(400,400);
                 setLayout(null);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 getContentPane().setBackground(new java.awt.Color(40, 50, 68));
                 setResizable(false);
 
