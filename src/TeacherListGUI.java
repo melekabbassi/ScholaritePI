@@ -228,8 +228,7 @@ public class TeacherListGUI extends JFrame {
         // on click open add teacher page
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // new AddTeacherGUI();
-                dispose();
+                new AddTeacherGUI();
             }
         });
 
