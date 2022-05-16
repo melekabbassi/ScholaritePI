@@ -1,4 +1,9 @@
 import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class CourseListGUI extends JFrame {
     

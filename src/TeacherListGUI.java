@@ -1,5 +1,10 @@
 import javax.swing.*;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class TeacherListGUI extends JFrame {
     private final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
