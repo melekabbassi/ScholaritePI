@@ -105,10 +105,9 @@ public class UpdateStudentGUI extends JFrame {
                 String Email = EmailTextField.getText();
                 if (StudentCode < 1 || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter Student code");
-                }
-                else{
+                } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Student?");
-                    if(result == JOptionPane.YES_OPTION){
+                    if (result == JOptionPane.YES_OPTION) {
                         updateStudent(StudentCode, FirstName, LastName, Email);
                         JOptionPane.showMessageDialog(null, "Student updated successfully");
                         StudentCodeTextField.setText("");
