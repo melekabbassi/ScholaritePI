@@ -3,7 +3,7 @@ public class Scolaritepi {
         /***** */
         new Login();
         // new UpdateTeacherGUI(l.tt.role);
-        // new sideBarGUI();
+        //new sideBarGUI();
         // new TeacherListGUI();
         // new GroupListGUI();
         // new DeleteStudentGUI();

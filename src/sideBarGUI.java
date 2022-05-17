@@ -209,6 +209,33 @@ public class sideBarGUI extends JFrame {
                 dispose();
             }
         });
+
+        // make a welcome label in the center of the screen
+        JLabel lblWelcome = new JLabel("Welcome");
+        lblWelcome.setBounds(600, 200, 1000, 100);
+        lblWelcome.setForeground(new java.awt.Color(255, 255, 255));
+        lblWelcome.setFont(new java.awt.Font("Roboto", 2, 50));
+        lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWelcome.setVerticalAlignment(SwingConstants.CENTER);
+        lblWelcome.setBackground(new java.awt.Color(40, 50, 68));
+        lblWelcome.setOpaque(true);
+        add(lblWelcome);
+
+        JLabel lblName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
+        lblName.setBounds(600, 300, 1000, 100);
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setFont(new java.awt.Font("Roboto", 2, 50));
+        lblName.setHorizontalAlignment(SwingConstants.CENTER);
+        lblName.setVerticalAlignment(SwingConstants.CENTER);
+        lblName.setBackground(new java.awt.Color(40, 50, 68));
+        lblName.setOpaque(true);
+        add(lblName);
+
+        JLabel lblImagePI = new JLabel();
+        lblImagePI.setBounds(950, 400, 250, 250);
+        lblImagePI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pi-logo.png")));
+        add(lblImagePI);        
+
         setVisible(true);
     }
 }

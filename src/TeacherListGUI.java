@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Toolkit;
+import java.sql.*;
 
 public class TeacherListGUI extends JFrame {
     private final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -192,8 +195,11 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
+        String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
+        Object[][] data = {};
+
         // make a table
-        JTable table = new JTable();
+        JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
         // make table transparent and color its borders
         table.setOpaque(false);
@@ -248,20 +254,6 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
-        // on click search teacher
-        // btnSearch.addActionListener(new java.awt.event.ActionListener() {
-        // public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // String search = txtSearch.getText();
-        // try {
-        // String sql = "SELECT * FROM teacher WHERE name LIKE '%"+search+"%'";
-        // pst = conn.prepareStatement(sql);
-        // rs = pst.executeQuery();
-        // table.setModel(DbUtils.resultSetToTableModel(rs));
-        // } catch (Exception e) {
-        // JOptionPane.showMessageDialog(null, e);
-        // }
-        // }
-        // });
 
         // make add button
         JButton btnAdd = new JButton("Add");
