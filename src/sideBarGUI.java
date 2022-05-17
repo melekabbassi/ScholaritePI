@@ -115,6 +115,35 @@ public class sideBarGUI extends JFrame {
             }
         });
 
+        // make a menu item
+        JButton btnAbsenceList = new JButton("Absence List");
+        btnAbsenceList.setBounds(-30, 200, 300, 50);
+        btnAbsenceList.setForeground(new java.awt.Color(34, 44, 62));
+        btnAbsenceList.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
+        btnAbsenceList.setBorder(null);
+        btnAbsenceList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnAbsenceList);
+
+        // on hover change background color and text color
+        btnAbsenceList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAbsenceList.setForeground(new java.awt.Color(34, 44, 62));
+                btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAbsenceList.setForeground(new java.awt.Color(164, 174, 194));
+                btnAbsenceList.setBackground(new java.awt.Color(34, 44, 62));
+            }
+
+            // on click open absence list
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new AbsenceListGUI();
+                dispose();
+            }
+        });           
+
         // make a logout button
         JButton btnLogout = new JButton("Logout");
         btnLogout.setBounds(-10, 950, 280, 100);
