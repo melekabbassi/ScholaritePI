@@ -152,6 +152,8 @@ public class Login extends JFrame {
                 user = new User();
                 user.email = resultSet.getString("email");
                 user.password = resultSet.getString("pass");
+            }else{
+                JOptionPane.showMessageDialog(null, "Please enter correct email and password");
             }
 
             preparedStatement.close();

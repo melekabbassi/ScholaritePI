@@ -258,8 +258,7 @@ public class TeacherListGUI extends JFrame {
         // on click open delete teacher page
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // new DeleteTeacherGUI();
-                dispose();
+                new DeleteTeacherGUI();
             }
         });
 
