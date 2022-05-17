@@ -69,7 +69,7 @@ public abstract class Person {
 
     public abstract void addPerson();
 
-    public abstract void updatePerson();
+    public abstract void updatePerson(Integer newCode);
 
     public abstract void deletePerson();
 

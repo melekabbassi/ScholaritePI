@@ -3,7 +3,8 @@ import java.sql.*;
 
 public class sideBarGUI extends JFrame {
 
-    public sideBarGUI() {
+    public sideBarGUI(String role) {
+        System.out.print(role);
         pack();
         setTitle("ScolaritéPi");
         setLayout(null);

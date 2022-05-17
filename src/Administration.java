@@ -1,7 +1,8 @@
-public class Administration extends Person{
+public class Administration extends Person {
     private Integer adminisCode;
 
-    public Administration(Integer id, String name, String lastname, String email, String password, String role, Integer adminisCode) {
+    public Administration(Integer id, String name, String lastname, String email, String password, String role,
+            Integer adminisCode) {
         super(id, name, lastname, email, password, role);
         this.adminisCode = adminisCode;
     }
@@ -20,25 +21,25 @@ public class Administration extends Person{
     @Override
     public void addPerson() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void updatePerson() {
+    public void updatePerson(Integer newCode) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void deletePerson() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void searchPerson() {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
 }

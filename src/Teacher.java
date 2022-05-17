@@ -22,44 +22,114 @@ public class Teacher extends Person {
 
     @Override
     public void addPerson() {
-        final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-        final String USERNAME = "root";
-        final String PASSWORD = "";
-
         try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
-
-            String sql = "INSERT INTO TABLE person(firstName, lastName, mail, role, password) VALUES (?, ?, ?,teacher,?)";
+            String sql = "INSERT INTO person(firstName, lastName, mail, role, password)" + " values (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastname);
             preparedStatement.setString(3, email);
-            preparedStatement.setString(4, "");
-            preparedStatement.executeQuery();
+            preparedStatement.setString(4, "teacher");
+            preparedStatement.setString(5, "mouchrajel");
+            preparedStatement.execute();
             preparedStatement.close();
             String sql2 = "SELECT id FROM person WHERE firstName = ? AND lastName = ?";
             PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
             preparedStatement2.setString(1, name);
             preparedStatement2.setString(2, lastname);
+            ResultSet resultSet = preparedStatement2.executeQuery();
+            if (resultSet.next()) {
+                int id = Integer.parseInt(resultSet.getString("id"));
+                String sql3 = "INSERT INTO teacher(teacherID, teacher_code)" + " VALUES (?, ?)";
+                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
+                preparedStatement3.setInt(1, id);
+                preparedStatement3.setInt(2, teacherCode);
+                preparedStatement3.execute();
+                preparedStatement3.close();
+            }
+            preparedStatement2.close();
             conn.close();
-
         } catch (Exception e) {
             System.out.println("Database connexion failed!");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updatePerson(Integer newCode) {
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // Connected to database successfully...
+            String sql = "select teacherID from teacher where teacher_code = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, teacherCode);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int id = Integer.parseInt(resultSet.getString("teacherID"));
+                System.out.print(id);
+                String sql2 = "UPDATE teacher SET teacher_code = ? WHERE teacher.teacherID = ?;";
+                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
+                preparedStatement2.setInt(1, newCode);
+                preparedStatement2.setInt(2, id);
+                preparedStatement2.execute();
+                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? WHERE person.id = ?;";
+                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
+                preparedStatement3.setString(1, name);
+                preparedStatement3.setString(2, lastname);
+                preparedStatement3.setString(3, email);
+                preparedStatement3.setInt(4, id);
+                preparedStatement3.execute();
+                preparedStatement2.close();
+                preparedStatement3.close();
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Database connexion failed!");
+            System.err.println(e.getMessage());
         }
 
     }
 
     @Override
-    public void updatePerson() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void deletePerson() {
-        // TODO Auto-generated method stub
-
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // Connected to database successfully...
+            String sql = "select teacherID from teacher where teacher_code = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, teacherCode);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int id = Integer.parseInt(resultSet.getString("teacherID"));
+                System.out.print(id);
+                String sql2 = "DELETE FROM teacher WHERE teacher.teacherID = ?";
+                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
+                preparedStatement2.setInt(1, id);
+                preparedStatement2.execute();
+                String sql3 = "DELETE FROM person WHERE person.id = ?";
+                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
+                preparedStatement3.setInt(1, id);
+                preparedStatement3.execute();
+                preparedStatement2.close();
+                preparedStatement3.close();
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Database connexion failed!");
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override
