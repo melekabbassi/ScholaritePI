@@ -2,14 +2,14 @@ import java.sql.*;
 
 import javax.swing.*;
 
-public class UpdateTeacherGUI extends JFrame {
+public class UpdateStudentGUI extends JFrame {
 
-    private JLabel TeacherCodeLabel;
+    private JLabel StudentCodeLabel;
     private JLabel FirstNameLabel;
     private JLabel LastNameLabel;
     private JLabel EmailLabel;
 
-    private JTextField TeacherCodeTextField;
+    private JTextField StudentCodeTextField;
     private JTextField FirstNameTextField;
     private JTextField LastNameTextField;
     private JTextField EmailTextField;
@@ -17,25 +17,25 @@ public class UpdateTeacherGUI extends JFrame {
     private JButton UpdateButton;
     private JButton CancelButton;
 
-    public UpdateTeacherGUI() {
-        setTitle("Add Teacher");
+    public UpdateStudentGUI() {
+        setTitle("Update Student");
         setSize(400, 400);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
         setResizable(false);
 
-        TeacherCodeLabel = new JLabel("Teacher Code");
-        TeacherCodeLabel.setBounds(10, 10, 100, 25);
-        TeacherCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
-        TeacherCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
-        TeacherCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
-        TeacherCodeLabel.setBorder(null);
-        add(TeacherCodeLabel);
+        StudentCodeLabel = new JLabel("Student Code");
+        StudentCodeLabel.setBounds(10, 10, 100, 25);
+        StudentCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        StudentCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        StudentCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        StudentCodeLabel.setBorder(null);
+        add(StudentCodeLabel);
 
-        TeacherCodeTextField = new JTextField(20);
-        TeacherCodeTextField.setBounds(120, 10, 165, 25);
-        add(TeacherCodeTextField);
+        StudentCodeTextField = new JTextField(20);
+        StudentCodeTextField.setBounds(120, 10, 165, 25);
+        add(StudentCodeTextField);
 
         FirstNameLabel = new JLabel("First Name");
         FirstNameLabel.setBounds(10, 60, 100, 25);
@@ -95,23 +95,23 @@ public class UpdateTeacherGUI extends JFrame {
             }
         });
 
-        // add action listener to the button to add teacher to the database and close
+        // add action listener to the button to add Student to the database and close
         // the window
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Integer TeacherCode = Integer.parseInt(TeacherCodeTextField.getText());
+                Integer StudentCode = Integer.parseInt(StudentCodeTextField.getText());
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
-                if (TeacherCode < 1 || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Please enter Teacher code");
+                if (StudentCode < 1 || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please enter Student code");
                 }
                 else{
-                    int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Teacher?");
+                    int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Student?");
                     if(result == JOptionPane.YES_OPTION){
-                        updateTeacher(TeacherCode, FirstName, LastName, Email);
-                        JOptionPane.showMessageDialog(null, "Teacher updated successfully");
-                        TeacherCodeTextField.setText("");
+                        updateStudent(StudentCode, FirstName, LastName, Email);
+                        JOptionPane.showMessageDialog(null, "Student updated successfully");
+                        StudentCodeTextField.setText("");
                         dispose();
                     }
                 }
@@ -151,7 +151,7 @@ public class UpdateTeacherGUI extends JFrame {
 
     }
 
-    private void updateTeacher(int TeacherCode, String FirstName, String LastName, String Email) {
+    private void updateStudent(int StudentCode, String FirstName, String LastName, String Email) {
 
         try {
             final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
@@ -164,7 +164,7 @@ public class UpdateTeacherGUI extends JFrame {
             preparedStatement.setString(1, FirstName);
             preparedStatement.setString(2, LastName);
             preparedStatement.setString(3, Email);
-            preparedStatement.setString(4, "teacher");
+            preparedStatement.setString(4, "student");
             preparedStatement.setString(5, "mouchrajel");
             preparedStatement.execute();
             preparedStatement.close();
@@ -175,10 +175,10 @@ public class UpdateTeacherGUI extends JFrame {
             ResultSet resultSet = preparedStatement2.executeQuery();
             if (resultSet.next()) {
                 int id = Integer.parseInt(resultSet.getString("id"));
-                String sql3 = "UPDATE teacher SET teacher_code= ? WHERE teacher.teacherID=?";
+                String sql3 = "UPDATE student SET student_code= ? WHERE student.studentID=?";
                 PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
                 preparedStatement3.setInt(1, id);
-                preparedStatement3.setInt(2, TeacherCode);
+                preparedStatement3.setInt(2, StudentCode);
                 preparedStatement3.execute();
                 preparedStatement3.close();
             }
