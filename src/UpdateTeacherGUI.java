@@ -5,11 +5,13 @@ import javax.swing.*;
 public class UpdateTeacherGUI extends JFrame {
 
     private JLabel TeacherCodeLabel;
+    private JLabel NewTeacherCodeLabel;
     private JLabel FirstNameLabel;
     private JLabel LastNameLabel;
     private JLabel EmailLabel;
 
     private JTextField TeacherCodeTextField;
+    private JTextField NewTeacherCodeTextField;
     private JTextField FirstNameTextField;
     private JTextField LastNameTextField;
     private JTextField EmailTextField;
@@ -18,7 +20,7 @@ public class UpdateTeacherGUI extends JFrame {
     private JButton CancelButton;
 
     public UpdateTeacherGUI() {
-        setTitle("Add Teacher");
+        setTitle("Update Teacher");
         setSize(400, 400);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,11 +36,23 @@ public class UpdateTeacherGUI extends JFrame {
         add(TeacherCodeLabel);
 
         TeacherCodeTextField = new JTextField(20);
-        TeacherCodeTextField.setBounds(120, 10, 165, 25);
+        TeacherCodeTextField.setBounds(160, 10, 165, 25);
         add(TeacherCodeTextField);
 
+        NewTeacherCodeLabel = new JLabel(" New Teacher Code");
+        NewTeacherCodeLabel.setBounds(10, 60, 150, 25);
+        NewTeacherCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        NewTeacherCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        NewTeacherCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        NewTeacherCodeLabel.setBorder(null);
+        add(NewTeacherCodeLabel);
+
+        NewTeacherCodeTextField = new JTextField(20);
+        NewTeacherCodeTextField.setBounds(160, 60, 165, 25);
+        add(NewTeacherCodeTextField);
+
         FirstNameLabel = new JLabel("First Name");
-        FirstNameLabel.setBounds(10, 60, 100, 25);
+        FirstNameLabel.setBounds(10, 110, 100, 25);
         FirstNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         FirstNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         FirstNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -46,11 +60,11 @@ public class UpdateTeacherGUI extends JFrame {
         add(FirstNameLabel);
 
         FirstNameTextField = new JTextField(20);
-        FirstNameTextField.setBounds(120, 60, 165, 25);
+        FirstNameTextField.setBounds(160, 110, 165, 25);
         add(FirstNameTextField);
 
         LastNameLabel = new JLabel("Last Name");
-        LastNameLabel.setBounds(10, 110, 100, 25);
+        LastNameLabel.setBounds(10, 160, 100, 25);
         LastNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         LastNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         LastNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -58,11 +72,11 @@ public class UpdateTeacherGUI extends JFrame {
         add(LastNameLabel);
 
         LastNameTextField = new JTextField(20);
-        LastNameTextField.setBounds(120, 110, 165, 25);
+        LastNameTextField.setBounds(160, 160, 165, 25);
         add(LastNameTextField);
 
         EmailLabel = new JLabel("Email");
-        EmailLabel.setBounds(10, 160, 100, 25);
+        EmailLabel.setBounds(10, 210, 100, 25);
         EmailLabel.setForeground(new java.awt.Color(164, 174, 194));
         EmailLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         EmailLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -70,11 +84,11 @@ public class UpdateTeacherGUI extends JFrame {
         add(EmailLabel);
 
         EmailTextField = new JTextField(20);
-        EmailTextField.setBounds(120, 160, 165, 25);
+        EmailTextField.setBounds(160, 210, 165, 25);
         add(EmailTextField);
 
         UpdateButton = new JButton("Update");
-        UpdateButton.setBounds(90, 250, 80, 25);
+        UpdateButton.setBounds(90, 280, 80, 25);
         UpdateButton.setForeground(new java.awt.Color(34, 44, 62));
         UpdateButton.setFont(new java.awt.Font("Roboto", 2, 14));
         UpdateButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -100,6 +114,7 @@ public class UpdateTeacherGUI extends JFrame {
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Integer TeacherCode = Integer.parseInt(TeacherCodeTextField.getText());
+                Integer NewTeacherCode = Integer.parseInt(NewTeacherCodeTextField.getText());
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
@@ -108,7 +123,7 @@ public class UpdateTeacherGUI extends JFrame {
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Teacher?");
                     if (result == JOptionPane.YES_OPTION) {
-                        updateTeacher(TeacherCode, FirstName, LastName, Email);
+                        updateTeacher(TeacherCode, NewTeacherCode, FirstName, LastName, Email);
                         JOptionPane.showMessageDialog(null, "Teacher updated successfully");
                         TeacherCodeTextField.setText("");
                         dispose();
@@ -118,7 +133,7 @@ public class UpdateTeacherGUI extends JFrame {
         });
 
         CancelButton = new JButton("Cancel");
-        CancelButton.setBounds(200, 250, 80, 25);
+        CancelButton.setBounds(200, 280, 80, 25);
         CancelButton.setForeground(new java.awt.Color(34, 44, 62));
         CancelButton.setFont(new java.awt.Font("Roboto", 2, 14));
         CancelButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -150,7 +165,7 @@ public class UpdateTeacherGUI extends JFrame {
 
     }
 
-    private void updateTeacher(int TeacherCode, String FirstName, String LastName, String Email) {
+    private void updateTeacher(int TeacherCode, int NewTeacherCode, String FirstName, String LastName, String Email) {
 
         try {
             final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
@@ -158,30 +173,29 @@ public class UpdateTeacherGUI extends JFrame {
             final String PASSWORD = "";
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
-            String sql = "UPDATE person SET id= ?, firstName=?, lastName=?, mail=?, role= ?, password=? WHERE person.id=?";
+            String sql = "select teacherID from teacher where teacher_code = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, FirstName);
-            preparedStatement.setString(2, LastName);
-            preparedStatement.setString(3, Email);
-            preparedStatement.setString(4, "teacher");
-            preparedStatement.setString(5, "mouchrajel");
-            preparedStatement.execute();
-            preparedStatement.close();
-            String sql2 = "SELECT id FROM person WHERE firstName = ? AND lastName = ?";
-            PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-            preparedStatement2.setString(1, FirstName);
-            preparedStatement2.setString(2, LastName);
-            ResultSet resultSet = preparedStatement2.executeQuery();
+            preparedStatement.setInt(1, TeacherCode);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("id"));
-                String sql3 = "UPDATE teacher SET teacher_code= ? WHERE teacher.teacherID=?";
+                int id = Integer.parseInt(resultSet.getString("teacherID"));
+                System.out.print(id);
+                String sql2 = "UPDATE teacher SET teacher_code = ? WHERE teacher.TeacherID = ?;";
+                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
+                preparedStatement2.setInt(1, NewTeacherCode);
+                preparedStatement2.setInt(2, id);
+                preparedStatement2.execute();
+                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? WHERE person.id = ?;";
                 PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setInt(1, id);
-                preparedStatement3.setInt(2, TeacherCode);
+                preparedStatement3.setString(1, FirstName);
+                preparedStatement3.setString(2, LastName);
+                preparedStatement3.setString(3, Email);
+                preparedStatement3.setInt(4, id);
                 preparedStatement3.execute();
+                preparedStatement2.close();
                 preparedStatement3.close();
             }
-            preparedStatement2.close();
+            preparedStatement.close();
             conn.close();
         } catch (Exception e) {
             System.out.println("Database connexion failed!");
