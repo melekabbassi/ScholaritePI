@@ -1,32 +1,32 @@
 import javax.swing.*;
 
-public class DeleteStudentGUI extends JFrame{
-        private JLabel StudentCodeLabel;
+public class DeleteCourseGUI extends JFrame{
+        private JLabel CourseCodeLabel;
     
-        private JTextField StudentCodeTextField;
+        private JTextField CourseCodeTextField;
 
         private JButton DeleteButton;
         private JButton CancelButton;
 
-        public DeleteStudentGUI(){
-                setTitle("Delete Student");
+        public DeleteCourseGUI(){
+                setTitle("Delete Course");
                 setSize(400,400);
                 setLayout(null);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 getContentPane().setBackground(new java.awt.Color(40, 50, 68));
                 setResizable(false);
 
-                StudentCodeLabel = new JLabel("Student Code");
-                StudentCodeLabel.setBounds(10,10,100,25);
-                StudentCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
-                StudentCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
-                StudentCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
-                StudentCodeLabel.setBorder(null);
-                add(StudentCodeLabel);
+                CourseCodeLabel = new JLabel("Course Code");
+                CourseCodeLabel.setBounds(10,10,100,25);
+                CourseCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
+                CourseCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+                CourseCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
+                CourseCodeLabel.setBorder(null);
+                add(CourseCodeLabel);
 
-                StudentCodeTextField = new JTextField(20);
-                StudentCodeTextField.setBounds(120,10,165,25);
-                add(StudentCodeTextField);
+                CourseCodeTextField = new JTextField(20);
+                CourseCodeTextField.setBounds(120,10,165,25);
+                add(CourseCodeTextField);
 
                 DeleteButton = new JButton("Delete");
                 DeleteButton.setBounds(90,250,80,25);
@@ -53,17 +53,17 @@ public class DeleteStudentGUI extends JFrame{
                 // delete button action listener 
                 DeleteButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        // String code = StudentCodeTextField.getText();
+                        // String code = CourseCodeTextField.getText();
                         // if(code.equals("")){
-                        //     JOptionPane.showMessageDialog(null, "Please enter student code");
+                        //     JOptionPane.showMessageDialog(null, "Please enter Course code");
                         // }
                         // else{
-                        //     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this student?");
+                        //     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Course?");
                         //     if(result == JOptionPane.YES_OPTION){
-                        //         String sql = "DELETE FROM student WHERE student_code = '"+code+"'";
+                        //         String sql = "DELETE FROM Course WHERE Course_code = '"+code+"'";
                         //         DB.setData(sql);
-                        //         JOptionPane.showMessageDialog(null, "Student deleted successfully");
-                        //         StudentCodeTextField.setText("");
+                        //         JOptionPane.showMessageDialog(null, "Course deleted successfully");
+                        //         CourseCodeTextField.setText("");
                         //     }
                         // }
                     }

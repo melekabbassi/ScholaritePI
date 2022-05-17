@@ -113,8 +113,6 @@ public class AddStudentGUI extends JFrame{
                 }
             });
 
-
-
             CancelButton = new JButton("Cancel");
             CancelButton.setBounds(200,250,80,25);
             CancelButton.setForeground(new java.awt.Color(34, 44, 62));
