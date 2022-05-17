@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.sql.*;
 
 public class DeleteTeacherGUI extends JFrame{
         private JLabel TeacherCodeLabel;
@@ -53,19 +54,19 @@ public class DeleteTeacherGUI extends JFrame{
                 // delete button action listener 
                 DeleteButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        // String code = TeacherCodeTextField.getText();
-                        // if(code.equals("")){
-                        //     JOptionPane.showMessageDialog(null, "Please enter Teacher code");
-                        // }
-                        // else{
-                        //     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Teacher?");
-                        //     if(result == JOptionPane.YES_OPTION){
-                        //         String sql = "DELETE FROM Teacher WHERE Teacher_code = '"+code+"'";
-                        //         DB.setData(sql);
-                        //         JOptionPane.showMessageDialog(null, "Teacher deleted successfully");
-                        //         TeacherCodeTextField.setText("");
-                        //     }
-                        // }
+                        String code = TeacherCodeTextField.getText();
+                        if(code.equals("")){
+                            JOptionPane.showMessageDialog(null, "Please enter Teacher code");
+                        }
+                        else{
+                            int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Teacher?");
+                            if(result == JOptionPane.YES_OPTION){
+                                deleteTeacher(TeacherCodeTextField.getText());
+                                JOptionPane.showMessageDialog(null, "Teacher deleted successfully");
+                                TeacherCodeTextField.setText("");
+                                dispose();
+                            }
+                        }
                     }
                 });
 
@@ -101,4 +102,23 @@ public class DeleteTeacherGUI extends JFrame{
 
             setVisible(true);
         }            
+        private void deleteTeacher(String TeacherCode) {
+
+            try {
+                final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+                final String USERNAME = "root";
+                final String PASSWORD = "";
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                // Connected to database successfully...
+                String sql = "DELETE FROM teacher WHERE teacher_code = '?'";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, TeacherCode);
+                preparedStatement.execute();
+                preparedStatement.close();
+                conn.close();
+            } catch (Exception e) {
+                System.out.println("Database connexion failed!");
+                System.err.println(e.getMessage());
+            }
+        }
 }
