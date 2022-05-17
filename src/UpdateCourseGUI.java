@@ -36,7 +36,7 @@ public class UpdateCourseGUI extends JFrame {
         add(CourseCodeTextField);
 
         CourseNameLabel = new JLabel("Course Name");
-        CourseNameLabel.setBounds(10, 60, 100, 25);
+        CourseNameLabel.setBounds(10, 85, 100, 25);
         CourseNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         CourseNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         CourseNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -44,10 +44,10 @@ public class UpdateCourseGUI extends JFrame {
         add(CourseNameLabel);
 
         CourseNameTextField = new JTextField(20);
-        CourseNameTextField.setBounds(120, 60, 165, 25);
+        CourseNameTextField.setBounds(120, 85, 165, 25);
         add(CourseNameTextField);
 
-        coefLabel = new JLabel("Course");
+        coefLabel = new JLabel("Coef");
         coefLabel.setBounds(10, 160, 100, 25);
         coefLabel.setForeground(new java.awt.Color(164, 174, 194));
         coefLabel.setFont(new java.awt.Font("Roboto", 2, 14));
