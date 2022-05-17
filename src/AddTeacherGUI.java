@@ -99,24 +99,26 @@ public class AddTeacherGUI extends JFrame {
         // the window
         AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Integer TeacherCode = Integer.parseInt(TeacherCodeTextField.getText());
+                String TeacherCode = TeacherCodeTextField.getText();
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
 
-                if (TeacherCode < 1 || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
+                if (TeacherCode.equals("") || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please fill all the fields");
                 } else {
-                    addTeacher(TeacherCode, FirstName, LastName, Email);
+                    int id = Integer.parseInt(TeacherCode);
+                    addTeacher(id, FirstName, LastName, Email);
                     JOptionPane.showMessageDialog(null, "Teacher added successfully");
                     dispose();
                 }
-                // if (TeacherCode.toString().equals("") || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
-                //     JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                // if (TeacherCode.toString().equals("") || FirstName.equals("") ||
+                // LastName.equals("") || Email.equals("")) {
+                // JOptionPane.showMessageDialog(null, "Please fill all the fields");
                 // } else {
-                //     addTeacher(TeacherCode, FirstName, LastName, Email);
-                //     JOptionPane.showMessageDialog(null, "Teacher added successfully");
-                //     dispose();
+                // addTeacher(TeacherCode, FirstName, LastName, Email);
+                // JOptionPane.showMessageDialog(null, "Teacher added successfully");
+                // dispose();
                 // }
             }
         });
