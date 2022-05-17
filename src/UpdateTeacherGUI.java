@@ -180,7 +180,7 @@ public class UpdateTeacherGUI extends JFrame {
             if (resultSet.next()) {
                 int id = Integer.parseInt(resultSet.getString("teacherID"));
                 System.out.print(id);
-                String sql2 = "UPDATE teacher SET teacher_code = ? WHERE teacher.TeacherID = ?;";
+                String sql2 = "UPDATE teacher SET teacher_code = ? WHERE teacher.teacherID = ?;";
                 PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
                 preparedStatement2.setInt(1, NewTeacherCode);
                 preparedStatement2.setInt(2, id);

@@ -5,11 +5,13 @@ import javax.swing.*;
 public class UpdateStudentGUI extends JFrame {
 
     private JLabel StudentCodeLabel;
+    private JLabel NewStudentCodeLabel;
     private JLabel FirstNameLabel;
     private JLabel LastNameLabel;
     private JLabel EmailLabel;
 
     private JTextField StudentCodeTextField;
+    private JTextField NewStudentCodeTextField;
     private JTextField FirstNameTextField;
     private JTextField LastNameTextField;
     private JTextField EmailTextField;
@@ -34,11 +36,23 @@ public class UpdateStudentGUI extends JFrame {
         add(StudentCodeLabel);
 
         StudentCodeTextField = new JTextField(20);
-        StudentCodeTextField.setBounds(120, 10, 165, 25);
+        StudentCodeTextField.setBounds(160, 10, 165, 25);
         add(StudentCodeTextField);
 
+        NewStudentCodeLabel = new JLabel("New Student Code");
+        NewStudentCodeLabel.setBounds(10, 60, 150, 25);
+        NewStudentCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        NewStudentCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        NewStudentCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        NewStudentCodeLabel.setBorder(null);
+        add(NewStudentCodeLabel);
+
+        NewStudentCodeTextField = new JTextField(20);
+        NewStudentCodeTextField.setBounds(160, 60, 165, 25);
+        add(NewStudentCodeTextField);
+
         FirstNameLabel = new JLabel("First Name");
-        FirstNameLabel.setBounds(10, 60, 100, 25);
+        FirstNameLabel.setBounds(10, 110, 100, 25);
         FirstNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         FirstNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         FirstNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -46,11 +60,11 @@ public class UpdateStudentGUI extends JFrame {
         add(FirstNameLabel);
 
         FirstNameTextField = new JTextField(20);
-        FirstNameTextField.setBounds(120, 60, 165, 25);
+        FirstNameTextField.setBounds(160, 110, 165, 25);
         add(FirstNameTextField);
 
         LastNameLabel = new JLabel("Last Name");
-        LastNameLabel.setBounds(10, 110, 100, 25);
+        LastNameLabel.setBounds(10, 160, 100, 25);
         LastNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         LastNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         LastNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -58,11 +72,11 @@ public class UpdateStudentGUI extends JFrame {
         add(LastNameLabel);
 
         LastNameTextField = new JTextField(20);
-        LastNameTextField.setBounds(120, 110, 165, 25);
+        LastNameTextField.setBounds(160, 160, 165, 25);
         add(LastNameTextField);
 
         EmailLabel = new JLabel("Email");
-        EmailLabel.setBounds(10, 160, 100, 25);
+        EmailLabel.setBounds(10, 210, 100, 25);
         EmailLabel.setForeground(new java.awt.Color(164, 174, 194));
         EmailLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         EmailLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -70,11 +84,11 @@ public class UpdateStudentGUI extends JFrame {
         add(EmailLabel);
 
         EmailTextField = new JTextField(20);
-        EmailTextField.setBounds(120, 160, 165, 25);
+        EmailTextField.setBounds(160, 210, 165, 25);
         add(EmailTextField);
 
         UpdateButton = new JButton("Update");
-        UpdateButton.setBounds(90, 250, 80, 25);
+        UpdateButton.setBounds(90, 280, 80, 25);
         UpdateButton.setForeground(new java.awt.Color(34, 44, 62));
         UpdateButton.setFont(new java.awt.Font("Roboto", 2, 14));
         UpdateButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -100,6 +114,7 @@ public class UpdateStudentGUI extends JFrame {
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Integer StudentCode = Integer.parseInt(StudentCodeTextField.getText());
+                Integer NewStudentCode = Integer.parseInt(NewStudentCodeTextField.getText());
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
@@ -108,7 +123,7 @@ public class UpdateStudentGUI extends JFrame {
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Student?");
                     if (result == JOptionPane.YES_OPTION) {
-                        updateStudent(StudentCode, FirstName, LastName, Email);
+                        updateStudent(StudentCode, NewStudentCode, FirstName, LastName, Email);
                         JOptionPane.showMessageDialog(null, "Student updated successfully");
                         StudentCodeTextField.setText("");
                         dispose();
@@ -118,7 +133,7 @@ public class UpdateStudentGUI extends JFrame {
         });
 
         CancelButton = new JButton("Cancel");
-        CancelButton.setBounds(200, 250, 80, 25);
+        CancelButton.setBounds(200, 280, 80, 25);
         CancelButton.setForeground(new java.awt.Color(34, 44, 62));
         CancelButton.setFont(new java.awt.Font("Roboto", 2, 14));
         CancelButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -150,7 +165,7 @@ public class UpdateStudentGUI extends JFrame {
 
     }
 
-    private void updateStudent(int StudentCode, String FirstName, String LastName, String Email) {
+    private void updateStudent(int StudentCode, int NewStudentCode, String FirstName, String LastName, String Email) {
 
         try {
             final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
@@ -158,30 +173,29 @@ public class UpdateStudentGUI extends JFrame {
             final String PASSWORD = "";
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             // Connected to database successfully...
-            String sql = "UPDATE person SET id= ?, firstName=?, lastName=?, mail=?, role= ?, password=? WHERE person.id=?";
+            String sql = "select studentID from student where numINSC = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, FirstName);
-            preparedStatement.setString(2, LastName);
-            preparedStatement.setString(3, Email);
-            preparedStatement.setString(4, "student");
-            preparedStatement.setString(5, "mouchrajel");
-            preparedStatement.execute();
-            preparedStatement.close();
-            String sql2 = "SELECT id FROM person WHERE firstName = ? AND lastName = ?";
-            PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-            preparedStatement2.setString(1, FirstName);
-            preparedStatement2.setString(2, LastName);
-            ResultSet resultSet = preparedStatement2.executeQuery();
+            preparedStatement.setInt(1, StudentCode);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("id"));
-                String sql3 = "UPDATE student SET student_code= ? WHERE student.studentID=?";
+                int id = Integer.parseInt(resultSet.getString("studentID"));
+                System.out.print(id);
+                String sql2 = "UPDATE student SET numINSC = ? WHERE student.studentID = ?;";
+                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
+                preparedStatement2.setInt(1, NewStudentCode);
+                preparedStatement2.setInt(2, id);
+                preparedStatement2.execute();
+                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? WHERE person.id = ?;";
                 PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setInt(1, id);
-                preparedStatement3.setInt(2, StudentCode);
+                preparedStatement3.setString(1, FirstName);
+                preparedStatement3.setString(2, LastName);
+                preparedStatement3.setString(3, Email);
+                preparedStatement3.setInt(4, id);
                 preparedStatement3.execute();
+                preparedStatement2.close();
                 preparedStatement3.close();
             }
-            preparedStatement2.close();
+            preparedStatement.close();
             conn.close();
         } catch (Exception e) {
             System.out.println("Database connexion failed!");
