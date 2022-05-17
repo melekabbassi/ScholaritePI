@@ -10,6 +10,7 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JLabel lblImage;
     private JButton btnIncorrectPassword;
+    User tt = new User();
 
     public Login() {
 
@@ -114,7 +115,7 @@ public class Login extends JFrame {
                 String password = txtPassword.getText();
                 User user = getAuthenticatedUser(email, password);
                 if (user != null) {
-                    new sideBarGUI();
+                    new sideBarGUI(tt.role);
                     dispose();
                 } else {
                     btnIncorrectPassword.setVisible(true);
@@ -152,7 +153,8 @@ public class Login extends JFrame {
                 user = new User();
                 user.email = resultSet.getString("email");
                 user.password = resultSet.getString("pass");
-            }else{
+                tt.role = resultSet.getString("role");
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter correct email and password");
             }
 
