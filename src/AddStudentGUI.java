@@ -144,9 +144,6 @@ public class AddStudentGUI extends JFrame{
                 }
             });
             
-
-
-
             setVisible(true);
     }
 }

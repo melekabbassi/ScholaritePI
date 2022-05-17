@@ -111,6 +111,13 @@ public class AddTeacherGUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "Teacher added successfully");
                     dispose();
                 }
+                // if (TeacherCode.toString().equals("") || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
+                //     JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                // } else {
+                //     addTeacher(TeacherCode, FirstName, LastName, Email);
+                //     JOptionPane.showMessageDialog(null, "Teacher added successfully");
+                //     dispose();
+                // }
             }
         });
 
