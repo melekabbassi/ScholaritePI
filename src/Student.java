@@ -1,7 +1,8 @@
 public class Student extends Person {
     private Integer studentCode;
 
-    public Student(Integer id, String name, String lastname, String email, String password, String role, Integer studentCode) {
+    public Student(Integer id, String name, String lastname, String email, String password, String role,
+            Integer studentCode) {
         super(id, name, lastname, email, password, role);
         this.studentCode = studentCode;
     }
@@ -17,29 +18,28 @@ public class Student extends Person {
         this.studentCode = studentCode;
     }
 
-
     @Override
     public void addPerson() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void updatePerson() {
+    public void updatePerson(Integer newCode) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void deletePerson() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void searchPerson() {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
