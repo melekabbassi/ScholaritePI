@@ -284,8 +284,7 @@ public class CourseListGUI extends JFrame {
         // on click open update teacher page
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // new UpdateCourseGUI();
-                dispose();
+                new UpdateCourseGUI();
             }
         });
         setVisible(true);
