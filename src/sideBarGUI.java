@@ -53,7 +53,7 @@ public class sideBarGUI extends JFrame {
 
             // on click open teacher list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new TeacherListGUI();
+                new TeacherListGUI(role);
                 dispose();
             }
         });
@@ -82,7 +82,7 @@ public class sideBarGUI extends JFrame {
 
             // on click open group list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new GroupListGUI();
+                new GroupListGUI(role);
                 dispose();
             }
         });
@@ -111,7 +111,7 @@ public class sideBarGUI extends JFrame {
 
             // on click open course list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new CourseListGUI();
+                new CourseListGUI(role);
                 dispose();
             }
         });
@@ -140,10 +140,43 @@ public class sideBarGUI extends JFrame {
 
             // on click open absence list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new AbsenceListGUI();
+                new AbsenceListGUI(role);
                 dispose();
             }
         });           
+
+        JButton administrationLisButton = new JButton("Administration List");
+        administrationLisButton.setBounds(-30, 250, 300, 50);
+        administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
+        administrationLisButton.setFont(new java.awt.Font("Roboto", 2, 20));
+        administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
+        administrationLisButton.setBorder(null);
+        administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(administrationLisButton);
+
+        if(role.equals("administration")){
+        	administrationLisButton.setVisible(false);
+        }
+
+        // on hover change background color and text color
+        administrationLisButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
+                administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                administrationLisButton.setForeground(new java.awt.Color(164, 174, 194));
+                administrationLisButton.setBackground(new java.awt.Color(34, 44, 62));
+            }
+
+            // on click open absence list
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new AdministrationListGUI(role);
+                dispose();
+            }
+        });
+
 
         // make a logout button
         JButton btnLogout = new JButton("Logout");
