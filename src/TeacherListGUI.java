@@ -1,11 +1,15 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javafx.scene.control.ScrollPane;
+
 import java.awt.Toolkit;
+import java.sql.*;
 
 public class TeacherListGUI extends JFrame {
     private final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final int HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-    public TeacherListGUI() {
+    public TeacherListGUI(String role) {
 
         pack();
         setTitle("ScolaritéPi");
@@ -66,7 +70,7 @@ public class TeacherListGUI extends JFrame {
 
             // on click open group list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new GroupListGUI();
+                new GroupListGUI(role);
                 dispose();
             }
         });
@@ -95,7 +99,68 @@ public class TeacherListGUI extends JFrame {
 
             // on click open course list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new CourseListGUI();
+                new CourseListGUI(role);
+                dispose();
+            }
+        });
+
+        // make a menu item
+        JButton btnAbsenceList = new JButton("Absence List");
+        btnAbsenceList.setBounds(-30, 200, 300, 50);
+        btnAbsenceList.setForeground(new java.awt.Color(34, 44, 62));
+        btnAbsenceList.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
+        btnAbsenceList.setBorder(null);
+        btnAbsenceList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnAbsenceList);
+
+        // on hover change background color and text color
+        btnAbsenceList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAbsenceList.setForeground(new java.awt.Color(34, 44, 62));
+                btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAbsenceList.setForeground(new java.awt.Color(164, 174, 194));
+                btnAbsenceList.setBackground(new java.awt.Color(34, 44, 62));
+            }
+
+            // on click open absence list
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new AbsenceListGUI(role);
+                dispose();
+            }
+        });           
+
+        JButton administrationLisButton = new JButton("Administration List");
+        administrationLisButton.setBounds(-30, 250, 300, 50);
+        administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
+        administrationLisButton.setFont(new java.awt.Font("Roboto", 2, 20));
+        administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
+        administrationLisButton.setBorder(null);
+        administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(administrationLisButton);
+        
+        if(role.equals("administration")){
+        	administrationLisButton.setVisible(false);
+        }
+
+        // on hover change background color and text color
+        administrationLisButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
+                administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                administrationLisButton.setForeground(new java.awt.Color(164, 174, 194));
+                administrationLisButton.setBackground(new java.awt.Color(34, 44, 62));
+            }
+
+            // on click open absence list
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new AdministrationListGUI(role);
                 dispose();
             }
         });
@@ -131,20 +196,41 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
-        // make a table
-        JTable table = new JTable();
+        String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
+        Object[][] data = { /*{"1414", "John", "Doe", "jdoe@pi.tn"},
+                            { "1415", "Jane", "Doe", "jane@pi.tn"},
+                            { "1416", "Johnna", "Mika", "jmika@pi.tn"},
+                            { "1417", "John", "Doe", "aaa@pi.tn"},
+                            { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
+                            { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
+                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}*/
+                        };
+
+        JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
-        // make table transparent and color its borders
-        table.setOpaque(false);
-        table.setShowGrid(true);
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 217, 152)));
+        table.setBackground(new java.awt.Color(40, 50, 68));
         table.setForeground(new java.awt.Color(255, 255, 255));
         table.setFont(new java.awt.Font("Roboto", 2, 20));
         table.setRowHeight(50);
-        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
         table.setFocusable(false);
-        add(table);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);      
 
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
+        
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
         lblTableHeader.setBounds(290, 50, 900, 50);
@@ -153,6 +239,72 @@ public class TeacherListGUI extends JFrame {
         lblTableHeader.setBackground(new java.awt.Color(0, 0, 0));
         lblTableHeader.setBorder(null);
         add(lblTableHeader);
+
+        // make a refresh button under the table
+        JButton btnRefresh = new JButton("Refresh");
+        btnRefresh.setBounds(290, 900, 280, 50);
+        btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+        btnRefresh.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+        btnRefresh.setBorder(null);
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnRefresh);
+
+        // on hover change background color and text color
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click refresh the table from the database
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+                    final String USERNAME = "root";
+                    final String PASSWORD = "";
+                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                    // Connected to database successfully...
+                    Statement stmt = conn.createStatement();
+                    String sql = "SELECT * FROM person";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+                    int columnCount = rsmd.getColumnCount();
+                    String[] columnNames = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        columnNames[i] = rsmd.getColumnName(i + 1);
+                        model.setColumnIdentifiers(columnNames);
+                        String id, firstName, lastName, email, role, password;
+                        while (rs.next()) {
+                            id = rs.getString(1);
+                            firstName = rs.getString(2);
+                            lastName = rs.getString(3);
+                            email = rs.getString(4);
+                            role = rs.getString(5);
+                            password = rs.getString(6);
+                            String[] row = {id, firstName, lastName, email, role, password};
+                            model.addRow(row);
+                        }
+                        stmt.close();
+                        conn.close();
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Database connexion failed!");
+                    System.err.println(e.getMessage());
+                }
+            }
+        });
+
 
         // make a search bar
         JTextField txtSearch = new JTextField();
@@ -186,21 +338,6 @@ public class TeacherListGUI extends JFrame {
                 btnSearch.setBackground(new java.awt.Color(42, 217, 152));
             }
         });
-
-        // on click search teacher
-        // btnSearch.addActionListener(new java.awt.event.ActionListener() {
-        // public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // String search = txtSearch.getText();
-        // try {
-        // String sql = "SELECT * FROM teacher WHERE name LIKE '%"+search+"%'";
-        // pst = conn.prepareStatement(sql);
-        // rs = pst.executeQuery();
-        // table.setModel(DbUtils.resultSetToTableModel(rs));
-        // } catch (Exception e) {
-        // JOptionPane.showMessageDialog(null, e);
-        // }
-        // }
-        // });
 
         // make add button
         JButton btnAdd = new JButton("Add");

@@ -1,19 +1,16 @@
 import javax.swing.*;
-import java.sql.*;
 
-public class sideBarGUI extends JFrame {
-
-    public sideBarGUI(String role) {
-        System.out.print(role);
-        pack();
-        setTitle("ScolaritéPi");
+public class AdministrationListGUI extends JFrame {
+    
+    public AdministrationListGUI(String role) {
+        setTitle("Administration List");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         // background Color
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
-
+        
         // set window to full screen withou affecting the sideBar
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -32,9 +29,9 @@ public class sideBarGUI extends JFrame {
         // make a menu item
         JButton btnTeacherList = new JButton("Teacher List");
         btnTeacherList.setBounds(-30, 50, 300, 50);
-        btnTeacherList.setForeground(new java.awt.Color(164, 174, 194));
+        btnTeacherList.setForeground(new java.awt.Color(34, 44, 62));
         btnTeacherList.setFont(new java.awt.Font("Roboto", 2, 20));
-        btnTeacherList.setBackground(new java.awt.Color(40, 50, 68));
+        btnTeacherList.setBackground(new java.awt.Color(42, 217, 152));
         btnTeacherList.setBorder(null);
         btnTeacherList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnTeacherList);
@@ -61,9 +58,9 @@ public class sideBarGUI extends JFrame {
         // make a menu item
         JButton btnGroupList = new JButton("Group List");
         btnGroupList.setBounds(-30, 100, 300, 50);
-        btnGroupList.setForeground(new java.awt.Color(255, 255, 255));
+        btnGroupList.setForeground(new java.awt.Color(34, 44, 62));
         btnGroupList.setFont(new java.awt.Font("Roboto", 2, 20));
-        btnGroupList.setBackground(new java.awt.Color(40, 50, 68));
+        btnGroupList.setBackground(new java.awt.Color(42, 217, 152));
         btnGroupList.setBorder(null);
         btnGroupList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnGroupList);
@@ -153,30 +150,10 @@ public class sideBarGUI extends JFrame {
         administrationLisButton.setBorder(null);
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
-
+        
         if(role.equals("administration")){
         	administrationLisButton.setVisible(false);
         }
-
-        // on hover change background color and text color
-        administrationLisButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
-                administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                administrationLisButton.setForeground(new java.awt.Color(164, 174, 194));
-                administrationLisButton.setBackground(new java.awt.Color(34, 44, 62));
-            }
-
-            // on click open absence list
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new AdministrationListGUI(role);
-                dispose();
-            }
-        });
-
 
         // make a logout button
         JButton btnLogout = new JButton("Logout");
@@ -209,32 +186,6 @@ public class sideBarGUI extends JFrame {
                 dispose();
             }
         });
-
-        // make a welcome label in the center of the screen
-        JLabel lblWelcome = new JLabel("Welcome");
-        lblWelcome.setBounds(600, 200, 1000, 100);
-        lblWelcome.setForeground(new java.awt.Color(255, 255, 255));
-        lblWelcome.setFont(new java.awt.Font("Roboto", 2, 50));
-        lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-        lblWelcome.setVerticalAlignment(SwingConstants.CENTER);
-        lblWelcome.setBackground(new java.awt.Color(40, 50, 68));
-        lblWelcome.setOpaque(true);
-        add(lblWelcome);
-
-        JLabel lblName = new JLabel("<html>Scolarité<sup style='color: #2AD998'>PI</sup></html>");
-        lblName.setBounds(600, 300, 1000, 100);
-        lblName.setForeground(new java.awt.Color(255, 255, 255));
-        lblName.setFont(new java.awt.Font("Roboto", 2, 50));
-        lblName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblName.setVerticalAlignment(SwingConstants.CENTER);
-        lblName.setBackground(new java.awt.Color(40, 50, 68));
-        lblName.setOpaque(true);
-        add(lblName);
-
-        JLabel lblImagePI = new JLabel();
-        lblImagePI.setBounds(950, 400, 250, 250);
-        lblImagePI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pi-logo.png")));
-        add(lblImagePI);        
 
         setVisible(true);
     }
