@@ -5,12 +5,16 @@ import javax.swing.*;
 public class UpdateCourseGUI extends JFrame {
 
     private JLabel CourseCodeLabel;
+    private JLabel CourseNew_codeLabel;
     private JLabel CourseNameLabel;
     private JLabel coefLabel;
+    private JLabel CourseTeacher_codeLabel;
 
     private JTextField CourseCodeTextField;
+    private JTextField CourseNew_codeTextField;
     private JTextField CourseNameTextField;
     private JTextField coefTextField;
+    private JTextField CourseTeacher_codeTextField;
 
     private JButton UpdateButton;
     private JButton CancelButton;
@@ -24,7 +28,7 @@ public class UpdateCourseGUI extends JFrame {
         setResizable(false);
 
         CourseCodeLabel = new JLabel("Course Code");
-        CourseCodeLabel.setBounds(10, 10, 100, 25);
+        CourseCodeLabel.setBounds(10, 10, 150, 25);
         CourseCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
         CourseCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         CourseCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -32,11 +36,23 @@ public class UpdateCourseGUI extends JFrame {
         add(CourseCodeLabel);
 
         CourseCodeTextField = new JTextField(20);
-        CourseCodeTextField.setBounds(120, 10, 165, 25);
+        CourseCodeTextField.setBounds(150, 10, 165, 25);
         add(CourseCodeTextField);
 
+        CourseNew_codeLabel = new JLabel("Course new Code");
+        CourseNew_codeLabel.setBounds(10, 60, 150, 25);
+        CourseNew_codeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        CourseNew_codeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        CourseNew_codeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        CourseNew_codeLabel.setBorder(null);
+        add(CourseNew_codeLabel);
+
+        CourseNew_codeTextField = new JTextField(20);
+        CourseNew_codeTextField.setBounds(150, 60, 165, 25);
+        add(CourseNew_codeTextField);
+
         CourseNameLabel = new JLabel("Course Name");
-        CourseNameLabel.setBounds(10, 85, 100, 25);
+        CourseNameLabel.setBounds(10, 110, 150, 25);
         CourseNameLabel.setForeground(new java.awt.Color(164, 174, 194));
         CourseNameLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         CourseNameLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -44,11 +60,11 @@ public class UpdateCourseGUI extends JFrame {
         add(CourseNameLabel);
 
         CourseNameTextField = new JTextField(20);
-        CourseNameTextField.setBounds(120, 85, 165, 25);
+        CourseNameTextField.setBounds(150, 110, 165, 25);
         add(CourseNameTextField);
 
         coefLabel = new JLabel("Coef");
-        coefLabel.setBounds(10, 160, 100, 25);
+        coefLabel.setBounds(10, 160, 150, 25);
         coefLabel.setForeground(new java.awt.Color(164, 174, 194));
         coefLabel.setFont(new java.awt.Font("Roboto", 2, 14));
         coefLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -56,11 +72,23 @@ public class UpdateCourseGUI extends JFrame {
         add(coefLabel);
 
         coefTextField = new JTextField(20);
-        coefTextField.setBounds(120, 160, 165, 25);
+        coefTextField.setBounds(150, 160, 165, 25);
         add(coefTextField);
 
+        CourseTeacher_codeLabel = new JLabel("Teacher Code");
+        CourseTeacher_codeLabel.setBounds(10, 210, 150, 25);
+        CourseTeacher_codeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        CourseTeacher_codeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        CourseTeacher_codeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        CourseTeacher_codeLabel.setBorder(null);
+        add(CourseTeacher_codeLabel);
+
+        CourseTeacher_codeTextField = new JTextField(20);
+        CourseTeacher_codeTextField.setBounds(150, 210, 165, 25);
+        add(CourseTeacher_codeTextField);
+
         UpdateButton = new JButton("Update");
-        UpdateButton.setBounds(90, 250, 80, 25);
+        UpdateButton.setBounds(90, 260, 80, 25);
         UpdateButton.setForeground(new java.awt.Color(34, 44, 62));
         UpdateButton.setFont(new java.awt.Font("Roboto", 2, 14));
         UpdateButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -85,15 +113,24 @@ public class UpdateCourseGUI extends JFrame {
         // the window
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Integer CourseCode = Integer.parseInt(CourseCodeTextField.getText());
+                String CourseCode = CourseCodeTextField.getText();
+                String NewCourseCode = CourseNew_codeTextField.getText();
                 String CourseName = CourseNameTextField.getText();
                 String Coef = coefTextField.getText();
-                if (CourseCode < 1 || CourseName.equals("") || Coef.equals("")) {
+                String TeacherCode = CourseTeacher_codeTextField.getText();
+                if (CourseCode.equals("") || CourseName.equals("") || Coef.equals("") || NewCourseCode.equals("")
+                        || TeacherCode.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter Course code");
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Course?");
                     if (result == JOptionPane.YES_OPTION) {
-                        updateCourse(CourseCode, CourseName, Coef);
+                        Course c = new Course();
+                        c.setCourseID(Integer.parseInt(CourseCode));
+                        c.setCourseName(CourseName);
+                        c.setCoef(Coef);
+                        c.updateCourse(Integer.parseInt(TeacherCode),
+                                Integer.parseInt(NewCourseCode));
+
                         JOptionPane.showMessageDialog(null, "Course updated successfully");
                         CourseCodeTextField.setText("");
                         dispose();
@@ -103,7 +140,7 @@ public class UpdateCourseGUI extends JFrame {
         });
 
         CancelButton = new JButton("Cancel");
-        CancelButton.setBounds(200, 250, 80, 25);
+        CancelButton.setBounds(200, 260, 80, 25);
         CancelButton.setForeground(new java.awt.Color(34, 44, 62));
         CancelButton.setFont(new java.awt.Font("Roboto", 2, 14));
         CancelButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -133,43 +170,5 @@ public class UpdateCourseGUI extends JFrame {
 
         setVisible(true);
 
-    }
-
-    private void updateCourse(int CourseCode, String CourseName, String Coef) {
-
-        try {
-            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-            final String USERNAME = "root";
-            final String PASSWORD = "";
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
-            String sql = "UPDATE person SET id= ?, CourseName=?, lastName=?, mail=?, role= ?, password=? WHERE person.id=?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, CourseName);
-            preparedStatement.setString(3, Coef);
-            preparedStatement.setString(4, "Course");
-            preparedStatement.setString(5, "mouchrajel");
-            preparedStatement.execute();
-            preparedStatement.close();
-            String sql2 = "SELECT id FROM person WHERE CourseName = ? AND lastName = ?";
-            PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-            preparedStatement2.setString(1, CourseName);
-            //preparedStatement2.setString(2, LastName);
-            ResultSet resultSet = preparedStatement2.executeQuery();
-            if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("id"));
-                String sql3 = "UPDATE Course SET Course_code= ? WHERE Course.CourseID=?";
-                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setInt(1, id);
-                preparedStatement3.setInt(2, CourseCode);
-                preparedStatement3.execute();
-                preparedStatement3.close();
-            }
-            preparedStatement2.close();
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Database connexion failed!");
-            System.err.println(e.getMessage());
-        }
     }
 }
