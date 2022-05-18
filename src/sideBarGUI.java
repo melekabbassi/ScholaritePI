@@ -142,7 +142,7 @@ public class sideBarGUI extends JFrame {
                 new AbsenceListGUI(role);
                 dispose();
             }
-        });           
+        });
 
         JButton administrationLisButton = new JButton("Administration List");
         administrationLisButton.setBounds(-30, 250, 300, 50);
@@ -153,8 +153,8 @@ public class sideBarGUI extends JFrame {
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
 
-        if(role.equals("administration")){
-        	administrationLisButton.setVisible(false);
+        if (role.equals("administration")) {
+            administrationLisButton.setVisible(false);
         }
 
         // on hover change background color and text color
@@ -175,7 +175,6 @@ public class sideBarGUI extends JFrame {
                 dispose();
             }
         });
-
 
         // make a logout button
         JButton btnLogout = new JButton("Logout");
@@ -233,7 +232,7 @@ public class sideBarGUI extends JFrame {
         JLabel lblImagePI = new JLabel();
         lblImagePI.setBounds(950, 400, 250, 250);
         lblImagePI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pi-logo.png")));
-        add(lblImagePI);        
+        add(lblImagePI);
 
         setVisible(true);
     }
