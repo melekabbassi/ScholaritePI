@@ -207,30 +207,31 @@ public class TeacherListGUI extends JFrame {
         // */
         // };
 
-        // JTable table = new JTable(data, columnNames);
-        // table.setBounds(290, 100, 1000, 800);
-        // table.setBackground(new java.awt.Color(40, 50, 68));
-        // table.setForeground(new java.awt.Color(255, 255, 255));
-        // table.setFont(new java.awt.Font("Roboto", 2, 20));
-        // table.setRowHeight(50);
-        // table.setEnabled(false);
-        // table.setShowGrid(true);
-        // table.setGridColor(new java.awt.Color(42, 217, 152));
-        // table.setFocusable(false);
-        // table.setRowSelectionAllowed(false);
-        // table.setColumnSelectionAllowed(false);
-        // table.setCellSelectionEnabled(false);
-        // table.setBorder(null);
-        // add(table);
+        JTable table = aa();
 
-        // JScrollPane scrollPane = new JScrollPane(table);
-        // table.setFillsViewportHeight(true);
-        // scrollPane.setBounds(290, 100, 1000, 800);
-        // scrollPane.setBackground(new java.awt.Color(40, 50, 68));
-        // scrollPane.setForeground(new java.awt.Color(42, 217, 152));
-        // scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
-        // scrollPane.setBorder(null);
-        // add(scrollPane);
+        table.setBounds(290, 100, 1000, 800);
+        table.setBackground(new java.awt.Color(40, 50, 68));
+        table.setForeground(new java.awt.Color(255, 255, 255));
+        table.setFont(new java.awt.Font("Roboto", 2, 20));
+        table.setRowHeight(50);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
 
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
@@ -267,7 +268,31 @@ public class TeacherListGUI extends JFrame {
         // on click refresh the table from the database
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aa();
+                table.setVisible(false);
+                JTable t2 = aa();
+                t2.setBounds(290, 100, 1000, 800);
+                t2.setBackground(new java.awt.Color(40, 50, 68));
+                t2.setForeground(new java.awt.Color(255, 255, 255));
+                t2.setFont(new java.awt.Font("Roboto", 2, 20));
+                t2.setRowHeight(50);
+                t2.setEnabled(false);
+                t2.setShowGrid(true);
+                t2.setGridColor(new java.awt.Color(42, 217, 152));
+                t2.setFocusable(false);
+                t2.setRowSelectionAllowed(false);
+                t2.setColumnSelectionAllowed(false);
+                t2.setCellSelectionEnabled(false);
+                t2.setBorder(null);
+                add(t2);
+
+                JScrollPane scrollPane = new JScrollPane(t2);
+                table.setFillsViewportHeight(true);
+                scrollPane.setBounds(290, 100, 1000, 800);
+                scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+                scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+                scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+                scrollPane.setBorder(null);
+                add(scrollPane);
             }
         });
 
@@ -399,51 +424,24 @@ public class TeacherListGUI extends JFrame {
 
     public JTable aa() {
         DefaultTableModel model = new DefaultTableModel();
-        String[] columnNames = { "ID", "First Name", "Last Name", "Email" };
+        String[] columnNames = { "Teacher ID", "First Name", "Last Name", "Email" };
         model.setColumnIdentifiers(columnNames);
         JTable table = new JTable();
         table.setModel(model);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setFillsViewportHeight(true);
-        JScrollPane scroll = new JScrollPane(table);
-        scroll.setHorizontalScrollBarPolicy(
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setVerticalScrollBarPolicy(
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        table.setBounds(290, 100, 1000, 800);
-        table.setBackground(new java.awt.Color(40, 50, 68));
-        table.setForeground(new java.awt.Color(255, 255, 255));
-        table.setFont(new java.awt.Font("Roboto", 2, 20));
-        table.setRowHeight(50);
-        table.setEnabled(false);
-        table.setShowGrid(true);
-        table.setGridColor(new java.awt.Color(42, 217, 152));
-        table.setFocusable(false);
-        table.setRowSelectionAllowed(false);
-        table.setColumnSelectionAllowed(false);
-        table.setCellSelectionEnabled(false);
-        table.setBorder(null);
-        add(table);
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        scrollPane.setBounds(290, 100, 1000, 800);
-        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
-        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
-        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
-        scrollPane.setBorder(null);
-        add(scrollPane);
 
         try {
             final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
             final String USERNAME = "root";
             final String PASSWORD = "";
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "select * from person where role ='teacher'";
+            String sql = "select t.teacher_code , p.firstName, p.lastName, p.mail from person p join teacher t on p.id = t.teacherID where p.role ='teacher' group by p.id";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             int i = 0;
             while (rs.next()) {
-                String id = rs.getString("id");
+                String id = rs.getString("teacher_code");
                 String fn = rs.getString("firstName");
                 String ln = rs.getString("lastName");
                 String mail = rs.getString("mail");
