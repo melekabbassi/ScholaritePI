@@ -34,7 +34,7 @@ public class Administration extends Person {
             preparedStatement.setString(2, lastname);
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, "administration");
-            preparedStatement.setString(5, "nes mle7");
+            preparedStatement.setString(5, "administration");
             preparedStatement.execute();
             preparedStatement.close();
             String sql2 = "SELECT id FROM person WHERE firstName = ? AND lastName = ?";
