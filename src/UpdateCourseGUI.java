@@ -7,10 +7,14 @@ public class UpdateCourseGUI extends JFrame {
     private JLabel CourseCodeLabel;
     private JLabel CourseNameLabel;
     private JLabel coefLabel;
+    private JLabel CourseTeacher_codeLabel;
+    private JLabel CourseNew_codeLabel;
 
     private JTextField CourseCodeTextField;
     private JTextField CourseNameTextField;
     private JTextField coefTextField;
+    private JTextField CourseTeacher_codeTextField;
+    private JTextField CourseNew_codeTextField;
 
     private JButton UpdateButton;
     private JButton CancelButton;
@@ -59,6 +63,30 @@ public class UpdateCourseGUI extends JFrame {
         coefTextField.setBounds(120, 160, 165, 25);
         add(coefTextField);
 
+        CourseTeacher_codeLabel = new JLabel("Course Teacher Code");
+        CourseTeacher_codeLabel.setBounds(10, 235, 100, 25);
+        CourseTeacher_codeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        CourseTeacher_codeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        CourseTeacher_codeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        CourseTeacher_codeLabel.setBorder(null);
+        add(CourseTeacher_codeLabel);
+
+        CourseTeacher_codeTextField = new JTextField(20);
+        CourseTeacher_codeTextField.setBounds(120, 235, 165, 25);
+        add(CourseTeacher_codeTextField);
+
+        CourseNew_codeLabel = new JLabel("Course Group Code");
+        CourseNew_codeLabel.setBounds(10, 310, 100, 25);
+        CourseNew_codeLabel.setForeground(new java.awt.Color(164, 174, 194));
+        CourseNew_codeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        CourseNew_codeLabel.setBackground(new java.awt.Color(0, 0, 0));
+        CourseNew_codeLabel.setBorder(null);
+        add(CourseNew_codeLabel);
+
+        CourseNew_codeTextField = new JTextField(20);
+        CourseNew_codeTextField.setBounds(120, 310, 165, 25);
+        add(CourseNew_codeTextField);
+
         UpdateButton = new JButton("Update");
         UpdateButton.setBounds(90, 250, 80, 25);
         UpdateButton.setForeground(new java.awt.Color(34, 44, 62));
@@ -93,7 +121,12 @@ public class UpdateCourseGUI extends JFrame {
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Course?");
                     if (result == JOptionPane.YES_OPTION) {
-                        updateCourse(CourseCode, CourseName, Coef);
+                        Course c = new Course();
+                        c.setCourseID(Integer.parseInt(CourseCodeTextField.getText()));
+                        c.setCourseName(CourseNameTextField.getText());
+                        c.setCoef(coefTextField.getText());
+                        c.updateCourse(Integer.parseInt(CourseTeacher_codeTextField.getText()), Integer.parseInt(CourseNew_codeTextField.getText()));
+
                         JOptionPane.showMessageDialog(null, "Course updated successfully");
                         CourseCodeTextField.setText("");
                         dispose();

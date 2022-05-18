@@ -189,48 +189,18 @@ public class AbsenceListGUI extends JFrame {
             }
         });
 
-        /******* */
-        String[] columnNames = { "absID", "absNumber", "StudentID", "CourseID" };
-        Object[][] data = {
-                { "1", "1", "1", "1" },
-                { "2", "2", "2", "2" },
-                { "3", "3", "3", "3" },
-                { "4", "4", "4", "4" },
-                { "5", "5", "5", "5" },
-                { "6", "6", "6", "6" },
-                { "7", "7", "7", "7" },
-                { "8", "8", "8", "8" },
-                { "9", "9", "9", "9" },
-                { "10", "10", "10", "10" },
-                { "11", "11", "11", "11" },
-                { "12", "12", "12", "12" },
-                { "13", "13", "13", "13" },
-                { "14", "14", "14", "14" },
-                { "15", "15", "15", "15" },
-                { "16", "16", "16", "16" },
-                { "17", "17", "17", "17" },
-                { "18", "18", "18", "18" },
-                { "19", "19", "19", "19" },
-                { "20", "20", "20", "20" },
-                { "21", "21", "21", "21" },
-                { "22", "22", "22", "22" },
-                { "23", "23", "23", "23" },
-                { "24", "24", "24", "24" },
-                { "25", "25", "25", "25" },
-                { "26", "26", "26", "26" },
-                { "27", "27", "27", "27" },
-                { "28", "28", "28", "28" },
-                { "29", "29", "29", "29" },
-                { "30", "30", "30", "30" },
-                { "31", "31", "31", "31" },
-                { "32", "32", "32", "32" },
-                { "33", "33", "33", "33" },
-                { "34", "34", "34", "34" },
-                { "35", "35", "35", "35" },
-                { "36", "36", "36", "36" }
-        };
+         // String[] columnNames = {"StudentID", "First Name", "Last Name", "Email"};
+        // Object[][] data = { /*{"1414", "John", "Doe", "jdoe@pi.tn"},
+        //                     { "1415", "Jane", "Doe", "jane@pi.tn"},
+        //                     { "1416", "Johnna", "Mika", "jmika@pi.tn"},
+        //                     { "1417", "John", "Doe", "aaa@pi.tn"},
+        //                     { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
+        //                     { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
+        //                     { "1420", "John", "Doe", "aaaadddd@pi.tn"}*/
+        //                 };
 
-        JTable table = new JTable(data, columnNames);
+        JTable table = populateTable();
+
         table.setBounds(290, 100, 1000, 800);
         table.setBackground(new java.awt.Color(40, 50, 68));
         table.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,7 +215,7 @@ public class AbsenceListGUI extends JFrame {
         table.setCellSelectionEnabled(false);
         table.setBorder(null);
         add(table);
-
+                
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         scrollPane.setBounds(290, 100, 1000, 800);
@@ -254,6 +224,16 @@ public class AbsenceListGUI extends JFrame {
         scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
         scrollPane.setBorder(null);
         add(scrollPane);
+                
+
+        // make a table header
+        JLabel lblTableHeader = new JLabel("Student List");
+        lblTableHeader.setBounds(290, 50, 900, 50);
+        lblTableHeader.setForeground(new java.awt.Color(164, 174, 194));
+        lblTableHeader.setFont(new java.awt.Font("Roboto", 2, 30));
+        lblTableHeader.setBackground(new java.awt.Color(0, 0, 0));
+        lblTableHeader.setBorder(null);
+        add(lblTableHeader);
 
         // make a refresh button under the table
         JButton btnRefresh = new JButton("Refresh");
@@ -281,45 +261,253 @@ public class AbsenceListGUI extends JFrame {
         // on click refresh the table from the database
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-                    final String USERNAME = "root";
-                    final String PASSWORD = "";
-                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                    // Connected to database successfully...
-                    Statement stmt = conn.createStatement();
-                    String sql = "SELECT * FROM person";
-                    ResultSet rs = stmt.executeQuery(sql);
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                table.setVisible(false);
+                JTable t2 = populateTable();
+                t2.setBounds(290, 100, 1000, 800);
+                t2.setBackground(new java.awt.Color(40, 50, 68));
+                t2.setForeground(new java.awt.Color(255, 255, 255));
+                t2.setFont(new java.awt.Font("Roboto", 2, 20));
+                t2.setRowHeight(50);
+                t2.setEnabled(false);
+                t2.setShowGrid(true);
+                t2.setGridColor(new java.awt.Color(42, 217, 152));
+                t2.setFocusable(false);
+                t2.setRowSelectionAllowed(false);
+                t2.setColumnSelectionAllowed(false);
+                t2.setCellSelectionEnabled(false);
+                t2.setBorder(null);
+                add(t2);
 
-                    int columnCount = rsmd.getColumnCount();
-                    String[] columnNames = new String[columnCount];
-                    for (int i = 0; i < columnCount; i++) {
-                        columnNames[i] = rsmd.getColumnName(i + 1);
-                        model.setColumnIdentifiers(columnNames);
-                        String id, firstName, lastName, email, role, password;
-                        while (rs.next()) {
-                            id = rs.getString(1);
-                            firstName = rs.getString(2);
-                            lastName = rs.getString(3);
-                            email = rs.getString(4);
-                            role = rs.getString(5);
-                            password = rs.getString(6);
-                            String[] row = { id, firstName, lastName, email, role, password };
-                            model.addRow(row);
-                        }
-                        stmt.close();
-                        conn.close();
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("Database connexion failed!");
-                    System.err.println(e.getMessage());
-                }
+                JScrollPane scrollPane = new JScrollPane(t2);
+                table.setFillsViewportHeight(true);
+                scrollPane.setBounds(290, 100, 1000, 800);
+                scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+                scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+                scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+                scrollPane.setBorder(null);
+                add(scrollPane);
             }
         });
 
+        // make a search bar
+        JTextField txtSearch = new JTextField();
+        txtSearch.setBounds(1450, 150, 280, 50);
+        txtSearch.setForeground(new java.awt.Color(34, 44, 62));
+        txtSearch.setFont(new java.awt.Font("Roboto", 2, 20));
+        txtSearch.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearch.setBorder(null);
+        txtSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(txtSearch);
+
+        // make a search button
+        JButton btnSearch = new JButton("Search");
+        btnSearch.setBounds(1450, 200, 280, 50);
+        btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+        btnSearch.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnSearch.setBackground(new java.awt.Color(42, 217, 152));
+        btnSearch.setBorder(null);
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnSearch);
+
+        // on hover change background color and text color
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+                btnSearch.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearch.setForeground(new java.awt.Color(34, 44, 62));
+                btnSearch.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                table.setVisible(false);
+                String value = txtSearch.getText();
+                JTable tab = SearchInTabe(value);
+                tab.setBounds(290, 100, 1000, 800);
+                tab.setBackground(new java.awt.Color(40, 50, 68));
+                tab.setForeground(new java.awt.Color(255, 255, 255));
+                tab.setFont(new java.awt.Font("Roboto", 2, 20));
+                tab.setRowHeight(50);
+                tab.setEnabled(false);
+                tab.setShowGrid(true);
+                tab.setGridColor(new java.awt.Color(42, 217, 152));
+                tab.setFocusable(false);
+                tab.setRowSelectionAllowed(false);
+                tab.setColumnSelectionAllowed(false);
+                tab.setCellSelectionEnabled(false);
+                tab.setBorder(null);
+                add(tab);
+
+                JScrollPane scrollPane = new JScrollPane(tab);
+                table.setFillsViewportHeight(true);
+                scrollPane.setBounds(290, 100, 1000, 800);
+                scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+                scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+                scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+                scrollPane.setBorder(null);
+                add(scrollPane);
+            }
+        });
+
+
+        // make add button
+        JButton btnAdd = new JButton("Add");
+        btnAdd.setBounds(1450, 350, 280, 100);
+        btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+        btnAdd.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnAdd.setBackground(new java.awt.Color(42, 217, 152));
+        btnAdd.setBorder(null);
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnAdd);
+
+        // on hover change background color and text color
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+                btnAdd.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdd.setForeground(new java.awt.Color(34, 44, 62));
+                btnAdd.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click open add teacher page
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                new AddStudentGUI();
+            }
+        });
+
+        // make a delete button
+        JButton btnDelete = new JButton("Delete");
+        btnDelete.setBounds(1450, 550, 280, 100);
+        btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+        btnDelete.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnDelete.setBackground(new java.awt.Color(42, 217, 152));
+        btnDelete.setBorder(null);
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnDelete);
+
+        // on hover change background color and text color
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+                btnDelete.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelete.setForeground(new java.awt.Color(34, 44, 62));
+                btnDelete.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click open delete teacher page
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                new DeleteStudentGUI();
+            }
+        });
+
+        // make a update button
+
+        JButton btnUpdate = new JButton("Update");
+        btnUpdate.setBounds(1450, 750, 280, 100);
+        btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+        btnUpdate.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnUpdate.setBackground(new java.awt.Color(42, 217, 152));
+        btnUpdate.setBorder(null);
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnUpdate);
+
+        // on hover change background color and text color
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+                btnUpdate.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnUpdate.setForeground(new java.awt.Color(34, 44, 62));
+                btnUpdate.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click open update teacher page
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                new UpdateStudentGUI();
+            }
+        });
         setVisible(true);
+    }
+
+    public JTable populateTable() {
+        DefaultTableModel model = new DefaultTableModel();
+        String[] columnNames = { "Absence ID", "Absence Number", "Student ID", "Course ID" };
+        model.setColumnIdentifiers(columnNames);
+        JTable table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "select * from absences";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String id = rs.getString("absID");
+                String nb = rs.getString("absNumber");
+                String sid = rs.getString("StudentID");
+                String cid = rs.getString("CourseID");
+                model.addRow(new Object[] { id, nb, sid, cid });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return table;
+    }
+
+    public JTable SearchInTabe(String value) {
+        DefaultTableModel model = new DefaultTableModel();
+        String[] columnNames = { "Absence ID", "Absence Number", "Student ID", "Course ID" };
+        model.setColumnIdentifiers(columnNames);
+        JTable table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "select * from absences where StudentID = ? or CourseID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, value);
+            ps.setString(2, value);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("absID");
+                String nb = rs.getString("absNumber");
+                String sid = rs.getString("StudentID");
+                String cid = rs.getString("CourseID");
+                model.addRow(new Object[] { id, nb, sid, cid });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return table;
     }
 }

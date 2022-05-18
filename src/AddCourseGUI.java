@@ -5,10 +5,12 @@ public class AddCourseGUI extends JFrame{
     private JLabel CourseCodeLabel;
     private JLabel CourseNameLabel;
     private JLabel Coef;
+    private JLabel CourseTeacher_code;
 
     private JTextField CourseCodeTextField;
     private JTextField CourseNameTextField;
     private JTextField CoefTextField;
+    private JTextField CourseTeacher_codeTextField;
 
     private JButton AddButton;
     private JButton CancelButton;
@@ -57,6 +59,18 @@ public class AddCourseGUI extends JFrame{
             CoefTextField.setBounds(120,160,165,25);
             add(CoefTextField);
 
+            CourseTeacher_code = new JLabel("Teacher Code");
+            CourseTeacher_code.setBounds(10,235,150,25);
+            CourseTeacher_code.setForeground(new java.awt.Color(164, 174, 194));
+            CourseTeacher_code.setFont(new java.awt.Font("Roboto", 2, 14));
+            CourseTeacher_code.setBackground(new java.awt.Color(0, 0, 0));
+            CourseTeacher_code.setBorder(null);
+            add(CourseTeacher_code);
+
+            CourseTeacher_codeTextField = new JTextField(20);
+            CourseTeacher_codeTextField.setBounds(120,235,165,25);
+            add(CourseTeacher_codeTextField);
+            
             AddButton = new JButton("Add");
             AddButton.setBounds(90,250,80,25);
             AddButton.setForeground(new java.awt.Color(34, 44, 62));
@@ -92,6 +106,11 @@ public class AddCourseGUI extends JFrame{
                     else{
                         // Course Course = new Course(CourseCode, CourseName, LastName, Email);
                         // CourseListGUI.addCourse(Course);
+                        Course c = new Course();
+                        c.setCourseID(Integer.parseInt(CourseCode));
+                        c.setCourseName(CourseName);
+                        c.setCoef(Coef);
+                        c.addCourse(Integer.parseInt(CourseTeacher_codeTextField.getText()));
                         JOptionPane.showMessageDialog(null, "Course added successfully");
                         dispose();
                     }
