@@ -1,5 +1,3 @@
-import java.sql.*;
-
 import javax.swing.*;
 
 public class UpdateTeacherGUI extends JFrame {

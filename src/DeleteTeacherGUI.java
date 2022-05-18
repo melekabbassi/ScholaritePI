@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.sql.*;
 
 public class DeleteTeacherGUI extends JFrame {
     private JLabel TeacherCodeLabel;
