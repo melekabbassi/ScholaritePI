@@ -130,7 +130,7 @@ public class TeacherListGUI extends JFrame {
                 new AbsenceListGUI(role);
                 dispose();
             }
-        });           
+        });
 
         JButton administrationLisButton = new JButton("Administration List");
         administrationLisButton.setBounds(-30, 250, 300, 50);
@@ -140,9 +140,9 @@ public class TeacherListGUI extends JFrame {
         administrationLisButton.setBorder(null);
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
-        
-        if(role.equals("administration")){
-        	administrationLisButton.setVisible(false);
+
+        if (role.equals("administration")) {
+            administrationLisButton.setVisible(false);
         }
 
         // on hover change background color and text color
@@ -195,41 +195,43 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
-        String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
-        Object[][] data = { /*{"1414", "John", "Doe", "jdoe@pi.tn"},
-                            { "1415", "Jane", "Doe", "jane@pi.tn"},
-                            { "1416", "Johnna", "Mika", "jmika@pi.tn"},
-                            { "1417", "John", "Doe", "aaa@pi.tn"},
-                            { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
-                            { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
-                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}*/
-                        };
+        // String[] columnNames = { "TeacherID", "First Name", "Last Name", "Email" };
+        // Object[][] data = { /*
+        // * {"1414", "John", "Doe", "jdoe@pi.tn"},
+        // * { "1415", "Jane", "Doe", "jane@pi.tn"},
+        // * { "1416", "Johnna", "Mika", "jmika@pi.tn"},
+        // * { "1417", "John", "Doe", "aaa@pi.tn"},
+        // * { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
+        // * { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
+        // * { "1420", "John", "Doe", "aaaadddd@pi.tn"}
+        // */
+        // };
 
-        JTable table = new JTable(data, columnNames);
-        table.setBounds(290, 100, 1000, 800);
-        table.setBackground(new java.awt.Color(40, 50, 68));
-        table.setForeground(new java.awt.Color(255, 255, 255));
-        table.setFont(new java.awt.Font("Roboto", 2, 20));
-        table.setRowHeight(50);
-        table.setEnabled(false);
-        table.setShowGrid(true);
-        table.setGridColor(new java.awt.Color(42, 217, 152));
-        table.setFocusable(false);
-        table.setRowSelectionAllowed(false);
-        table.setColumnSelectionAllowed(false);
-        table.setCellSelectionEnabled(false);
-        table.setBorder(null);
-        add(table);      
+        // JTable table = new JTable(data, columnNames);
+        // table.setBounds(290, 100, 1000, 800);
+        // table.setBackground(new java.awt.Color(40, 50, 68));
+        // table.setForeground(new java.awt.Color(255, 255, 255));
+        // table.setFont(new java.awt.Font("Roboto", 2, 20));
+        // table.setRowHeight(50);
+        // table.setEnabled(false);
+        // table.setShowGrid(true);
+        // table.setGridColor(new java.awt.Color(42, 217, 152));
+        // table.setFocusable(false);
+        // table.setRowSelectionAllowed(false);
+        // table.setColumnSelectionAllowed(false);
+        // table.setCellSelectionEnabled(false);
+        // table.setBorder(null);
+        // add(table);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        scrollPane.setBounds(290, 100, 1000, 800);
-        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
-        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
-        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
-        scrollPane.setBorder(null);
-        add(scrollPane);
-        
+        // JScrollPane scrollPane = new JScrollPane(table);
+        // table.setFillsViewportHeight(true);
+        // scrollPane.setBounds(290, 100, 1000, 800);
+        // scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        // scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        // scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        // scrollPane.setBorder(null);
+        // add(scrollPane);
+
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
         lblTableHeader.setBounds(290, 50, 900, 50);
@@ -265,45 +267,9 @@ public class TeacherListGUI extends JFrame {
         // on click refresh the table from the database
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-                    final String USERNAME = "root";
-                    final String PASSWORD = "";
-                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                    // Connected to database successfully...
-                    Statement stmt = conn.createStatement();
-                    String sql = "SELECT * FROM person";
-                    ResultSet rs = stmt.executeQuery(sql);
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-                    int columnCount = rsmd.getColumnCount();
-                    String[] columnNames = new String[columnCount];
-                    for (int i = 0; i < columnCount; i++) {
-                        columnNames[i] = rsmd.getColumnName(i + 1);
-                        model.setColumnIdentifiers(columnNames);
-                        String id, firstName, lastName, email, role, password;
-                        while (rs.next()) {
-                            id = rs.getString(1);
-                            firstName = rs.getString(2);
-                            lastName = rs.getString(3);
-                            email = rs.getString(4);
-                            role = rs.getString(5);
-                            password = rs.getString(6);
-                            String[] row = {id, firstName, lastName, email, role, password};
-                            model.addRow(row);
-                        }
-                        stmt.close();
-                        conn.close();
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("Database connexion failed!");
-                    System.err.println(e.getMessage());
-                }
+                aa();
             }
         });
-
 
         // make a search bar
         JTextField txtSearch = new JTextField();
@@ -430,4 +396,65 @@ public class TeacherListGUI extends JFrame {
         });
         setVisible(true);
     }
+
+    public JTable aa() {
+        DefaultTableModel model = new DefaultTableModel();
+        String[] columnNames = { "ID", "First Name", "Last Name", "Email" };
+        model.setColumnIdentifiers(columnNames);
+        JTable table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        table.setBounds(290, 100, 1000, 800);
+        table.setBackground(new java.awt.Color(40, 50, 68));
+        table.setForeground(new java.awt.Color(255, 255, 255));
+        table.setFont(new java.awt.Font("Roboto", 2, 20));
+        table.setRowHeight(50);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
+
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "select * from person where role ='teacher'";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int i = 0;
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String fn = rs.getString("firstName");
+                String ln = rs.getString("lastName");
+                String mail = rs.getString("mail");
+                model.addRow(new Object[] { id, fn, ln, mail });
+                i++;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return table;
+    }
+
 }
