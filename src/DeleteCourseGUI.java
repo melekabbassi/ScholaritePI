@@ -53,19 +53,9 @@ public class DeleteCourseGUI extends JFrame{
                 // delete button action listener 
                 DeleteButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        // String code = CourseCodeTextField.getText();
-                        // if(code.equals("")){
-                        //     JOptionPane.showMessageDialog(null, "Please enter Course code");
-                        // }
-                        // else{
-                        //     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Course?");
-                        //     if(result == JOptionPane.YES_OPTION){
-                        //         String sql = "DELETE FROM Course WHERE Course_code = '"+code+"'";
-                        //         DB.setData(sql);
-                        //         JOptionPane.showMessageDialog(null, "Course deleted successfully");
-                        //         CourseCodeTextField.setText("");
-                        //     }
-                        // }
+                        Course c = new Course();
+                        c.setCourseID(Integer.parseInt(CourseCodeTextField.getText()));
+                        c.deleteCourse();
                     }
                 });
 
