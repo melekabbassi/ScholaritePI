@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import javafx.scene.control.ScrollPane;
+
 import java.awt.Toolkit;
 import java.sql.*;
 
@@ -196,22 +198,39 @@ public class TeacherListGUI extends JFrame {
         });
 
         String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
-        Object[][] data = {};
+        Object[][] data = {{"1414", "John", "Doe", "jdoe@pi.tn"},
+                            { "1415", "Jane", "Doe", "jane@pi.tn"},
+                            { "1416", "Johnna", "Mika", "jmika@pi.tn"},
+                            { "1417", "John", "Doe", "aaa@pi.tn"},
+                            { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
+                            { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
+                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}
+        };
 
-        // make a table
         JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
-        // make table transparent and color its borders
-        table.setOpaque(false);
-        table.setShowGrid(true);
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 217, 152)));
+        table.setBackground(new java.awt.Color(40, 50, 68));
         table.setForeground(new java.awt.Color(255, 255, 255));
         table.setFont(new java.awt.Font("Roboto", 2, 20));
         table.setRowHeight(50);
-        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
         table.setFocusable(false);
-        add(table);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);      
 
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
         lblTableHeader.setBounds(290, 50, 900, 50);
