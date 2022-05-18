@@ -59,7 +59,7 @@ public class CourseListGUI extends JFrame {
         });
 
         // make a menu item
-        JButton btnGroupList = new JButton("Group List");
+        JButton btnGroupList = new JButton("Student List");
         btnGroupList.setBounds(-30, 100, 300, 50);
         btnGroupList.setForeground(new java.awt.Color(34, 44, 62));
         btnGroupList.setFont(new java.awt.Font("Roboto", 2, 20));
@@ -82,7 +82,7 @@ public class CourseListGUI extends JFrame {
 
             // on click open group list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new GroupListGUI(role);
+                new StudentListGUI(role);
                 dispose();
             }
         });
