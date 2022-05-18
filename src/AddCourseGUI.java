@@ -72,7 +72,7 @@ public class AddCourseGUI extends JFrame{
             add(CourseTeacher_codeTextField);
             
             AddButton = new JButton("Add");
-            AddButton.setBounds(90,250,80,25);
+            AddButton.setBounds(90,300,80,25);
             AddButton.setForeground(new java.awt.Color(34, 44, 62));
             AddButton.setFont(new java.awt.Font("Roboto", 2, 14));
             AddButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -118,7 +118,7 @@ public class AddCourseGUI extends JFrame{
             });
 
             CancelButton = new JButton("Cancel");
-            CancelButton.setBounds(200,250,80,25);
+            CancelButton.setBounds(200,300,80,25);
             CancelButton.setForeground(new java.awt.Color(34, 44, 62));
             CancelButton.setFont(new java.awt.Font("Roboto", 2, 14));
             CancelButton.setBackground(new java.awt.Color(42, 217, 152));
