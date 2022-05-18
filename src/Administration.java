@@ -74,20 +74,14 @@ public class Administration extends Person {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = Integer.parseInt(resultSet.getString("administrationID"));
-                System.out.print(id);
-                String sql2 = "UPDATE administration SET administration_key = ? WHERE administration.administrationID = ?;";
-                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-                preparedStatement2.setInt(1, newCode);
-                preparedStatement2.setInt(2, id);
-                preparedStatement2.execute();
-                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? WHERE person.id = ?;";
+                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? , password = ? WHERE person.id = ?;";
                 PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
                 preparedStatement3.setString(1, name);
                 preparedStatement3.setString(2, lastname);
                 preparedStatement3.setString(3, email);
-                preparedStatement3.setInt(4, id);
+                preparedStatement3.setString(4, this.password);
+                preparedStatement3.setInt(5, id);
                 preparedStatement3.execute();
-                preparedStatement2.close();
                 preparedStatement3.close();
             }
             preparedStatement.close();

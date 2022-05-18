@@ -3,13 +3,13 @@ import javax.swing.*;
 public class UpdateAdministrationGUI extends JFrame {
 
     private JLabel AdministrationCodeLabel;
-    private JLabel NewAdministrationCodeLabel;
+    private JLabel passwordLabel;
     private JLabel FirstNameLabel;
     private JLabel LastNameLabel;
     private JLabel EmailLabel;
 
     private JTextField AdministrationCodeTextField;
-    private JTextField NewAdministrationCodeTextField;
+    private JTextField passwordTextField;
     private JTextField FirstNameTextField;
     private JTextField LastNameTextField;
     private JTextField EmailTextField;
@@ -37,17 +37,17 @@ public class UpdateAdministrationGUI extends JFrame {
         AdministrationCodeTextField.setBounds(160, 10, 165, 25);
         add(AdministrationCodeTextField);
 
-        NewAdministrationCodeLabel = new JLabel(" New Administration Code");
-        NewAdministrationCodeLabel.setBounds(10, 60, 150, 25);
-        NewAdministrationCodeLabel.setForeground(new java.awt.Color(164, 174, 194));
-        NewAdministrationCodeLabel.setFont(new java.awt.Font("Roboto", 2, 14));
-        NewAdministrationCodeLabel.setBackground(new java.awt.Color(0, 0, 0));
-        NewAdministrationCodeLabel.setBorder(null);
-        add(NewAdministrationCodeLabel);
+        passwordLabel = new JLabel(" Add a password");
+        passwordLabel.setBounds(10, 60, 150, 25);
+        passwordLabel.setForeground(new java.awt.Color(164, 174, 194));
+        passwordLabel.setFont(new java.awt.Font("Roboto", 2, 14));
+        passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
+        passwordLabel.setBorder(null);
+        add(passwordLabel);
 
-        NewAdministrationCodeTextField = new JTextField(20);
-        NewAdministrationCodeTextField.setBounds(160, 60, 165, 25);
-        add(NewAdministrationCodeTextField);
+        passwordTextField = new JTextField(20);
+        passwordTextField.setBounds(160, 60, 165, 25);
+        add(passwordTextField);
 
         FirstNameLabel = new JLabel("First Name");
         FirstNameLabel.setBounds(10, 110, 100, 25);
@@ -107,7 +107,8 @@ public class UpdateAdministrationGUI extends JFrame {
             }
         });
 
-        // add action listener to the button to add Administration to the database and close
+        // add action listener to the button to add Administration to the database and
+        // close
         // the window
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,19 +117,21 @@ public class UpdateAdministrationGUI extends JFrame {
                 t.setLastname(LastNameTextField.getText());
                 t.setEmail(EmailTextField.getText());
                 t.setAdminisCode(Integer.parseInt(AdministrationCodeTextField.getText()));
-                String NewAdministrationCode = NewAdministrationCodeTextField.getText();
+                t.setPassword(passwordTextField.getText());
+                String passwordLabel = passwordTextField.getText();
                 String AdministrationCode = AdministrationCodeTextField.getText();
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
-                if (AdministrationCode.equals("") || NewAdministrationCode.equals("") || FirstName.equals("") || LastName.equals("")
+                if (AdministrationCode.equals("") || passwordLabel.equals("") || FirstName.equals("")
+                        || LastName.equals("")
                         || Email.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter Administration code");
                 } else {
-                    int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Administration?");
+                    int result = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to update this Administration?");
                     if (result == JOptionPane.YES_OPTION) {
-                        int newCode = Integer.parseInt(NewAdministrationCode);
-                        t.updatePerson(newCode);
+                        t.updatePerson(0);
                         JOptionPane.showMessageDialog(null, "Administration updated successfully");
                         AdministrationCodeTextField.setText("");
                         dispose();

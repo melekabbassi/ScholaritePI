@@ -83,14 +83,15 @@ public class Course {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("teacherID");
-                String sql2 = "UPDATE course SET courseID = ?, courseName = ?, coef = ?, teacherID = ? WHERE `course`.`courseID` = ?;";
+                System.out.println(id);
+                String sql2 = "UPDATE course SET courseID = ?, courseName = ?, coef = ?, teacherID = ? WHERE course.courseID = ?;";
                 PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
                 preparedStatement2.setInt(1, coursenewid);
                 preparedStatement2.setString(2, courseName);
                 preparedStatement2.setString(3, coef);
                 preparedStatement2.setInt(4, id);
                 preparedStatement2.setInt(5, courseID);
-                preparedStatement2.executeQuery();
+                preparedStatement2.execute();
                 preparedStatement2.close();
             } else {
                 System.out.println("prof not found");
