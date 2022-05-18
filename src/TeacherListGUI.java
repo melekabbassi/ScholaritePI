@@ -44,7 +44,7 @@ public class TeacherListGUI extends JFrame {
         btnTeacherList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnTeacherList);
 
-        JButton btnGroupList = new JButton("Group List");
+        JButton btnGroupList = new JButton("Student List");
         // make a menu item
         btnGroupList.setBounds(-30, 100, 300, 50);
         btnGroupList.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,7 +68,7 @@ public class TeacherListGUI extends JFrame {
 
             // on click open group list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new GroupListGUI(role);
+                new StudentListGUI(role);
                 dispose();
             }
         });
