@@ -189,6 +189,7 @@ public class AbsenceListGUI extends JFrame{
             }
         });
 
+        /******* */
         String[] columnNames = {"absID", "absNumber", "StudentID", "CourseID"};
         Object[][] data = {
             {"1", "1", "1", "1"},
