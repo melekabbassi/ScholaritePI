@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.Toolkit;
 import java.sql.*;
 
@@ -207,7 +206,7 @@ public class TeacherListGUI extends JFrame {
         // */
         // };
 
-        JTable table = aa();
+        JTable table = populateTable();
 
         table.setBounds(290, 100, 1000, 800);
         table.setBackground(new java.awt.Color(40, 50, 68));
@@ -269,7 +268,7 @@ public class TeacherListGUI extends JFrame {
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 table.setVisible(false);
-                JTable t2 = aa();
+                JTable t2 = populateTable();
                 t2.setBounds(290, 100, 1000, 800);
                 t2.setBackground(new java.awt.Color(40, 50, 68));
                 t2.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,6 +325,36 @@ public class TeacherListGUI extends JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSearch.setForeground(new java.awt.Color(34, 44, 62));
                 btnSearch.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                table.setVisible(false);
+                String value = txtSearch.getText();
+                JTable tab = SearchInTabe(value);
+                tab.setBounds(290, 100, 1000, 800);
+                tab.setBackground(new java.awt.Color(40, 50, 68));
+                tab.setForeground(new java.awt.Color(255, 255, 255));
+                tab.setFont(new java.awt.Font("Roboto", 2, 20));
+                tab.setRowHeight(50);
+                tab.setEnabled(false);
+                tab.setShowGrid(true);
+                tab.setGridColor(new java.awt.Color(42, 217, 152));
+                tab.setFocusable(false);
+                tab.setRowSelectionAllowed(false);
+                tab.setColumnSelectionAllowed(false);
+                tab.setCellSelectionEnabled(false);
+                tab.setBorder(null);
+                add(tab);
+
+                JScrollPane scrollPane = new JScrollPane(tab);
+                table.setFillsViewportHeight(true);
+                scrollPane.setBounds(290, 100, 1000, 800);
+                scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+                scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+                scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+                scrollPane.setBorder(null);
+                add(scrollPane);
             }
         });
 
@@ -422,7 +451,7 @@ public class TeacherListGUI extends JFrame {
         setVisible(true);
     }
 
-    public JTable aa() {
+    public JTable populateTable() {
         DefaultTableModel model = new DefaultTableModel();
         String[] columnNames = { "Teacher ID", "First Name", "Last Name", "Email" };
         model.setColumnIdentifiers(columnNames);
@@ -436,17 +465,49 @@ public class TeacherListGUI extends JFrame {
             final String USERNAME = "root";
             final String PASSWORD = "";
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "select t.teacher_code , p.firstName, p.lastName, p.mail from person p join teacher t on p.id = t.teacherID where p.role ='teacher' group by p.id";
+            String sql = "select * from teachers";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            int i = 0;
+
             while (rs.next()) {
                 String id = rs.getString("teacher_code");
                 String fn = rs.getString("firstName");
                 String ln = rs.getString("lastName");
                 String mail = rs.getString("mail");
                 model.addRow(new Object[] { id, fn, ln, mail });
-                i++;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return table;
+    }
+
+    public JTable SearchInTabe(String value) {
+        DefaultTableModel model = new DefaultTableModel();
+        String[] columnNames = { "Teacher ID", "First Name", "Last Name", "Email" };
+        model.setColumnIdentifiers(columnNames);
+        JTable table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+
+        try {
+            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+            final String USERNAME = "root";
+            final String PASSWORD = "";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "select * from teachers where firstName = ? or lastName = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, value);
+            ps.setString(2, value);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("teacher_code");
+                String fn = rs.getString("firstName");
+                String ln = rs.getString("lastName");
+                String mail = rs.getString("mail");
+                model.addRow(new Object[] { id, fn, ln, mail });
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",

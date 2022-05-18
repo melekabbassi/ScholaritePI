@@ -1,8 +1,5 @@
 import javax.swing.*;
 
-import java.rmi.StubNotFoundException;
-import java.sql.*;
-
 public class DeleteStudentGUI extends JFrame {
     private JLabel StudentCodeLabel;
 
