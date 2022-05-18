@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.rmi.StubNotFoundException;
 import java.sql.*;
 
 public class DeleteStudentGUI extends JFrame {
@@ -55,12 +57,14 @@ public class DeleteStudentGUI extends JFrame {
         DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 String code = StudentCodeTextField.getText();
+                Student s = new Student();
+                s.setStudentCode(Integer.parseInt(StudentCodeTextField.getText()));
                 if (code.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter Teacher code");
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Teacher?");
                     if (result == JOptionPane.YES_OPTION) {
-                        deleteStudent(StudentCodeTextField.getText());
+                        s.deletePerson();
                         JOptionPane.showMessageDialog(null, "Teacher deleted successfully");
                         StudentCodeTextField.setText("");
                         dispose();
@@ -101,37 +105,4 @@ public class DeleteStudentGUI extends JFrame {
         setVisible(true);
     }
 
-    private void deleteStudent(String studentCode) {
-
-        try {
-            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-            final String USERNAME = "root";
-            final String PASSWORD = "";
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
-            String sql = "select studentID from student where numINSC = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, studentCode);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("studentID"));
-                System.out.print(id);
-                String sql2 = "DELETE FROM student WHERE student.studentID = ?";
-                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-                preparedStatement2.setInt(1, id);
-                preparedStatement2.execute();
-                String sql3 = "DELETE FROM person WHERE person.id = ?";
-                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setInt(1, id);
-                preparedStatement3.execute();
-                preparedStatement2.close();
-                preparedStatement3.close();
-            }
-            preparedStatement.close();
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Database connexion failed!");
-            System.err.println(e.getMessage());
-        }
-    }
 }

@@ -102,12 +102,16 @@ public class AddStudentGUI extends JFrame {
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
+                Student student = new Student();
+                student.setName(FirstNameTextField.getText());
+                student.setLastname(LastNameTextField.getText());
+                student.setStudentCode(Integer.parseInt(StudentCodeTextField.getText()));
+                student.setEmail(EmailTextField.getText());
 
                 if (StudentCode.equals("") || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please fill all the fields");
                 } else {
-                    int id = Integer.parseInt(StudentCode);
-                    addStudent(id, FirstName, LastName, Email);
+                    student.addPerson();
                     JOptionPane.showMessageDialog(null, "Student added successfully");
                     dispose();
                 }
@@ -146,42 +150,4 @@ public class AddStudentGUI extends JFrame {
         setVisible(true);
     }
 
-    private void addStudent(int StudentCode, String FirstName, String LastName, String Email) {
-
-        try {
-            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-            final String USERNAME = "root";
-            final String PASSWORD = "";
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
-            String sql = "INSERT INTO person(firstName, lastName, mail, role, password)" + " values (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, FirstName);
-            preparedStatement.setString(2, LastName);
-            preparedStatement.setString(3, Email);
-            preparedStatement.setString(4, "student");
-            preparedStatement.setString(5, "brother in pain");
-            preparedStatement.execute();
-            preparedStatement.close();
-            String sql2 = "SELECT id FROM person WHERE firstName = ? AND lastName = ?";
-            PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-            preparedStatement2.setString(1, FirstName);
-            preparedStatement2.setString(2, LastName);
-            ResultSet resultSet = preparedStatement2.executeQuery();
-            if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("id"));
-                String sql3 = "INSERT INTO student(studentID, numINSC)" + " VALUES (?, ?)";
-                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setInt(1, id);
-                preparedStatement3.setInt(2, StudentCode);
-                preparedStatement3.execute();
-                preparedStatement3.close();
-            }
-            preparedStatement2.close();
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Database connexion failed!");
-            System.err.println(e.getMessage());
-        }
-    }
 }
