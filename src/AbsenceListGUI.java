@@ -2,8 +2,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
-public class AbsenceListGUI extends JFrame{
-    
+public class AbsenceListGUI extends JFrame {
+
     public AbsenceListGUI(String role) {
         setTitle("Absence List");
         setLayout(null);
@@ -12,7 +12,7 @@ public class AbsenceListGUI extends JFrame{
         setResizable(false);
         // background Color
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
-        
+
         // set window to full screen withou affecting the sideBar
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -123,7 +123,7 @@ public class AbsenceListGUI extends JFrame{
         btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
         btnAbsenceList.setBorder(null);
         btnAbsenceList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(btnAbsenceList);       
+        add(btnAbsenceList);
 
         JButton administrationLisButton = new JButton("Administration List");
         administrationLisButton.setBounds(-30, 250, 300, 50);
@@ -133,9 +133,9 @@ public class AbsenceListGUI extends JFrame{
         administrationLisButton.setBorder(null);
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
-        
-        if(role.equals("administration")){
-        	administrationLisButton.setVisible(false);
+
+        if (role.equals("administration")) {
+            administrationLisButton.setVisible(false);
         }
 
         // on hover change background color and text color
@@ -190,44 +190,44 @@ public class AbsenceListGUI extends JFrame{
         });
 
         /******* */
-        String[] columnNames = {"absID", "absNumber", "StudentID", "CourseID"};
+        String[] columnNames = { "absID", "absNumber", "StudentID", "CourseID" };
         Object[][] data = {
-            {"1", "1", "1", "1"},
-            {"2", "2", "2", "2"},
-            {"3", "3", "3", "3"},
-            {"4", "4", "4", "4"},
-            {"5", "5", "5", "5"},
-            {"6", "6", "6", "6"},
-            {"7", "7", "7", "7"},
-            {"8", "8", "8", "8"},
-            {"9", "9", "9", "9"},
-            {"10", "10", "10", "10"},
-            {"11", "11", "11", "11"},
-            {"12", "12", "12", "12"},
-            {"13", "13", "13", "13"},
-            {"14", "14", "14", "14"},
-            {"15", "15", "15", "15"},
-            {"16", "16", "16", "16"},
-            {"17", "17", "17", "17"},
-            {"18", "18", "18", "18"},
-            {"19", "19", "19", "19"},
-            {"20", "20", "20", "20"},
-            {"21", "21", "21", "21"},
-            {"22", "22", "22", "22"},
-            {"23", "23", "23", "23"},
-            {"24", "24", "24", "24"},
-            {"25", "25", "25", "25"},
-            {"26", "26", "26", "26"},
-            {"27", "27", "27", "27"},
-            {"28", "28", "28", "28"},
-            {"29", "29", "29", "29"},
-            {"30", "30", "30", "30"},
-            {"31", "31", "31", "31"},
-            {"32", "32", "32", "32"},
-            {"33", "33", "33", "33"},
-            {"34", "34", "34", "34"},
-            {"35", "35", "35", "35"},
-            {"36", "36", "36", "36"}
+                { "1", "1", "1", "1" },
+                { "2", "2", "2", "2" },
+                { "3", "3", "3", "3" },
+                { "4", "4", "4", "4" },
+                { "5", "5", "5", "5" },
+                { "6", "6", "6", "6" },
+                { "7", "7", "7", "7" },
+                { "8", "8", "8", "8" },
+                { "9", "9", "9", "9" },
+                { "10", "10", "10", "10" },
+                { "11", "11", "11", "11" },
+                { "12", "12", "12", "12" },
+                { "13", "13", "13", "13" },
+                { "14", "14", "14", "14" },
+                { "15", "15", "15", "15" },
+                { "16", "16", "16", "16" },
+                { "17", "17", "17", "17" },
+                { "18", "18", "18", "18" },
+                { "19", "19", "19", "19" },
+                { "20", "20", "20", "20" },
+                { "21", "21", "21", "21" },
+                { "22", "22", "22", "22" },
+                { "23", "23", "23", "23" },
+                { "24", "24", "24", "24" },
+                { "25", "25", "25", "25" },
+                { "26", "26", "26", "26" },
+                { "27", "27", "27", "27" },
+                { "28", "28", "28", "28" },
+                { "29", "29", "29", "29" },
+                { "30", "30", "30", "30" },
+                { "31", "31", "31", "31" },
+                { "32", "32", "32", "32" },
+                { "33", "33", "33", "33" },
+                { "34", "34", "34", "34" },
+                { "35", "35", "35", "35" },
+                { "36", "36", "36", "36" }
         };
 
         JTable table = new JTable(data, columnNames);
@@ -244,7 +244,7 @@ public class AbsenceListGUI extends JFrame{
         table.setColumnSelectionAllowed(false);
         table.setCellSelectionEnabled(false);
         table.setBorder(null);
-        add(table);      
+        add(table);
 
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
@@ -306,7 +306,7 @@ public class AbsenceListGUI extends JFrame{
                             email = rs.getString(4);
                             role = rs.getString(5);
                             password = rs.getString(6);
-                            String[] row = {id, firstName, lastName, email, role, password};
+                            String[] row = { id, firstName, lastName, email, role, password };
                             model.addRow(row);
                         }
                         stmt.close();
@@ -321,5 +321,5 @@ public class AbsenceListGUI extends JFrame{
         });
 
         setVisible(true);
-    } 
+    }
 }
