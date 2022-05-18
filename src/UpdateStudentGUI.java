@@ -113,17 +113,23 @@ public class UpdateStudentGUI extends JFrame {
         // the window
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Integer StudentCode = Integer.parseInt(StudentCodeTextField.getText());
-                Integer NewStudentCode = Integer.parseInt(NewStudentCodeTextField.getText());
+                String StudentCode = StudentCodeTextField.getText();
+                String NewStudentCode = NewStudentCodeTextField.getText();
                 String FirstName = FirstNameTextField.getText();
                 String LastName = LastNameTextField.getText();
                 String Email = EmailTextField.getText();
-                if (StudentCode < 1 || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
+                Student s = new Student();
+                s.setName(FirstNameTextField.getText());
+                s.setLastname(LastNameTextField.getText());
+                s.setEmail(EmailTextField.getText());
+                s.setStudentCode(Integer.parseInt(StudentCodeTextField.getText()));
+                if (StudentCode.equals("") || FirstName.equals("") || LastName.equals("") || Email.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter Student code");
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this Student?");
                     if (result == JOptionPane.YES_OPTION) {
-                        updateStudent(StudentCode, NewStudentCode, FirstName, LastName, Email);
+                        int newCode = Integer.parseInt(NewStudentCode);
+                        s.updatePerson(newCode);
                         JOptionPane.showMessageDialog(null, "Student updated successfully");
                         StudentCodeTextField.setText("");
                         dispose();
@@ -165,41 +171,4 @@ public class UpdateStudentGUI extends JFrame {
 
     }
 
-    private void updateStudent(int StudentCode, int NewStudentCode, String FirstName, String LastName, String Email) {
-
-        try {
-            final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
-            final String USERNAME = "root";
-            final String PASSWORD = "";
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
-            String sql = "select studentID from student where numINSC = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, StudentCode);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("studentID"));
-                System.out.print(id);
-                String sql2 = "UPDATE student SET numINSC = ? WHERE student.studentID = ?;";
-                PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
-                preparedStatement2.setInt(1, NewStudentCode);
-                preparedStatement2.setInt(2, id);
-                preparedStatement2.execute();
-                String sql3 = "UPDATE person SET firstName = ? , lastName = ? , mail = ? WHERE person.id = ?;";
-                PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
-                preparedStatement3.setString(1, FirstName);
-                preparedStatement3.setString(2, LastName);
-                preparedStatement3.setString(3, Email);
-                preparedStatement3.setInt(4, id);
-                preparedStatement3.execute();
-                preparedStatement2.close();
-                preparedStatement3.close();
-            }
-            preparedStatement.close();
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Database connexion failed!");
-            System.err.println(e.getMessage());
-        }
-    }
 }
