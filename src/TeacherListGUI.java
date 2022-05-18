@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import javafx.scene.control.ScrollPane;
 
 import java.awt.Toolkit;
@@ -198,14 +197,14 @@ public class TeacherListGUI extends JFrame {
         });
 
         String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
-        Object[][] data = {{"1414", "John", "Doe", "jdoe@pi.tn"},
+        Object[][] data = { /*{"1414", "John", "Doe", "jdoe@pi.tn"},
                             { "1415", "Jane", "Doe", "jane@pi.tn"},
                             { "1416", "Johnna", "Mika", "jmika@pi.tn"},
                             { "1417", "John", "Doe", "aaa@pi.tn"},
                             { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
                             { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
-                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}
-        };
+                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}*/
+                        };
 
         JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
@@ -231,6 +230,7 @@ public class TeacherListGUI extends JFrame {
         scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
         scrollPane.setBorder(null);
         add(scrollPane);
+        
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
         lblTableHeader.setBounds(290, 50, 900, 50);
@@ -239,6 +239,72 @@ public class TeacherListGUI extends JFrame {
         lblTableHeader.setBackground(new java.awt.Color(0, 0, 0));
         lblTableHeader.setBorder(null);
         add(lblTableHeader);
+
+        // make a refresh button under the table
+        JButton btnRefresh = new JButton("Refresh");
+        btnRefresh.setBounds(290, 900, 280, 50);
+        btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+        btnRefresh.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+        btnRefresh.setBorder(null);
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnRefresh);
+
+        // on hover change background color and text color
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click refresh the table from the database
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+                    final String USERNAME = "root";
+                    final String PASSWORD = "";
+                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                    // Connected to database successfully...
+                    Statement stmt = conn.createStatement();
+                    String sql = "SELECT * FROM person";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+                    int columnCount = rsmd.getColumnCount();
+                    String[] columnNames = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        columnNames[i] = rsmd.getColumnName(i + 1);
+                        model.setColumnIdentifiers(columnNames);
+                        String id, firstName, lastName, email, role, password;
+                        while (rs.next()) {
+                            id = rs.getString(1);
+                            firstName = rs.getString(2);
+                            lastName = rs.getString(3);
+                            email = rs.getString(4);
+                            role = rs.getString(5);
+                            password = rs.getString(6);
+                            String[] row = {id, firstName, lastName, email, role, password};
+                            model.addRow(row);
+                        }
+                        stmt.close();
+                        conn.close();
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Database connexion failed!");
+                    System.err.println(e.getMessage());
+                }
+            }
+        });
+
 
         // make a search bar
         JTextField txtSearch = new JTextField();
@@ -272,7 +338,6 @@ public class TeacherListGUI extends JFrame {
                 btnSearch.setBackground(new java.awt.Color(42, 217, 152));
             }
         });
-
 
         // make add button
         JButton btnAdd = new JButton("Add");
