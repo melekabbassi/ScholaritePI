@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javafx.scene.control.ScrollPane;
 
 import java.awt.Toolkit;
 import java.sql.*;

@@ -1,4 +1,7 @@
+import java.sql.*;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class CourseListGUI extends JFrame {
 
@@ -187,19 +190,76 @@ public class CourseListGUI extends JFrame {
             }
         });
 
-        // make a table
-        JTable table = new JTable();
+        String[] columnNames = {"CourseID", "CourseName", "Coef", "TeacherID"};
+        Object[][] data = { { "CSCI-101", "Intro to Computer Science", "3", "1" },
+                            { "CSCI-102", "Intro to Computer Science", "3", "1" },
+                { "CSCI-103", "Intro to Computer Science", "3", "1" },
+                { "CSCI-104", "Intro to Computer Science", "3", "1" },
+                { "CSCI-105", "Intro to Computer Science", "3", "1" },
+                { "CSCI-106", "Intro to Computer Science", "3", "1" },
+                { "CSCI-107", "Intro to Computer Science", "3", "1" },
+                { "CSCI-108", "Intro to Computer Science", "3", "1" },
+                { "CSCI-109", "Intro to Computer Science", "3", "1" },
+                { "CSCI-110", "Intro to Computer Science", "3", "1" },
+                { "CSCI-111", "Intro to Computer Science", "3", "1" },
+                { "CSCI-112", "Intro to Computer Science", "3", "1" },
+                { "CSCI-113", "Intro to Computer Science", "3", "1" },
+                { "CSCI-114", "Intro to Computer Science", "3", "1" },
+                { "CSCI-115", "Intro to Computer Science", "3", "1" },
+                { "CSCI-116", "Intro to Computer Science", "3", "1" },
+                { "CSCI-117", "Intro to Computer Science", "3", "1" },
+                { "CSCI-118", "Intro to Computer Science", "3", "1" },
+                { "CSCI-119", "Intro to Computer Science", "3", "1" },
+                { "CSCI-120", "Intro to Computer Science", "3", "1" },
+                { "CSCI-121", "Intro to Computer Science", "3", "1" },
+                { "CSCI-122", "Intro to Computer Science", "3", "1" },
+                { "CSCI-123", "Intro to Computer Science", "3", "1" },
+                { "CSCI-124", "Intro to Computer Science", "3", "1" },
+                { "CSCI-125", "Intro to Computer Science", "3", "1" },
+                { "CSCI-126", "Intro to Computer Science", "3", "1" },
+                { "CSCI-127", "Intro to Computer Science", "3", "1" },
+                { "CSCI-128", "Intro to Computer Science", "3", "1" },
+                { "CSCI-129", "Intro to Computer Science", "3", "1" },
+                { "CSCI-130", "Intro to Computer Science", "3", "1" },
+                { "CSCI-131", "Intro to Computer Science", "3", "1" },
+                { "CSCI-132", "Intro to Computer Science", "3", "1" },
+                { "CSCI-133", "Intro to Computer Science", "3", "1" },
+                { "CSCI-134", "Intro to Computer Science", "3", "1" },
+                { "CSCI-135", "Intro to Computer Science", "3", "1" },
+                { "CSCI-136", "Intro to Computer Science", "3", "1" },
+                { "CSCI-137", "Intro to Computer Science", "3", "1" },
+                { "CSCI-138", "Intro to Computer Science", "3", "1" },
+                { "CSCI-139", "Intro to Computer Science", "3", "1" },
+                { "CSCI-140", "Intro to Computer Science", "3", "1" },
+                { "CSCI-141", "Intro to Computer Science", "3", "1" },
+                { "CSCI-142", "Intro to Computer Science", "3", "1" },
+                { "CSCI-143", "Intro to Computer","3","1"}
+        };
+
+        JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
-        // make table transparent and color its borders
-        table.setOpaque(false);
-        table.setShowGrid(true);
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 217, 152)));
+        table.setBackground(new java.awt.Color(40, 50, 68));
         table.setForeground(new java.awt.Color(255, 255, 255));
         table.setFont(new java.awt.Font("Roboto", 2, 20));
         table.setRowHeight(50);
-        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
         table.setFocusable(false);
-        add(table);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);      
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
 
         // make a table header
         JLabel lblTableHeader = new JLabel("Course List");
@@ -209,6 +269,71 @@ public class CourseListGUI extends JFrame {
         lblTableHeader.setBackground(new java.awt.Color(0, 0, 0));
         lblTableHeader.setBorder(null);
         add(lblTableHeader);
+
+        // make a refresh button under the table
+        JButton btnRefresh = new JButton("Refresh");
+        btnRefresh.setBounds(290, 900, 280, 50);
+        btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+        btnRefresh.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+        btnRefresh.setBorder(null);
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnRefresh);
+
+        // on hover change background color and text color
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click refresh the table from the database
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+                    final String USERNAME = "root";
+                    final String PASSWORD = "";
+                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                    // Connected to database successfully...
+                    Statement stmt = conn.createStatement();
+                    String sql = "SELECT * FROM person";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+                    int columnCount = rsmd.getColumnCount();
+                    String[] columnNames = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        columnNames[i] = rsmd.getColumnName(i + 1);
+                        model.setColumnIdentifiers(columnNames);
+                        String id, firstName, lastName, email, role, password;
+                        while (rs.next()) {
+                            id = rs.getString(1);
+                            firstName = rs.getString(2);
+                            lastName = rs.getString(3);
+                            email = rs.getString(4);
+                            role = rs.getString(5);
+                            password = rs.getString(6);
+                            String[] row = {id, firstName, lastName, email, role, password};
+                            model.addRow(row);
+                        }
+                        stmt.close();
+                        conn.close();
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Database connexion failed!");
+                    System.err.println(e.getMessage());
+                }
+            }
+        });
 
         // make a search bar
         JTextField txtSearch = new JTextField();
@@ -242,21 +367,6 @@ public class CourseListGUI extends JFrame {
                 btnSearch.setBackground(new java.awt.Color(42, 217, 152));
             }
         });
-
-        // on click search teacher
-        // btnSearch.addActionListener(new java.awt.event.ActionListener() {
-        // public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // String search = txtSearch.getText();
-        // try {
-        // String sql = "SELECT * FROM teacher WHERE name LIKE '%"+search+"%'";
-        // pst = conn.prepareStatement(sql);
-        // rs = pst.executeQuery();
-        // table.setModel(DbUtils.resultSetToTableModel(rs));
-        // } catch (Exception e) {
-        // JOptionPane.showMessageDialog(null, e);
-        // }
-        // }
-        // });
 
         // make add button
         JButton btnAdd = new JButton("Add");
