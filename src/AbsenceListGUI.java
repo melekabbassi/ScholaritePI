@@ -1,7 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
-public class AbsenceListGUI extends JFrame{
-    
+public class AbsenceListGUI extends JFrame {
+
     public AbsenceListGUI(String role) {
         setTitle("Absence List");
         setLayout(null);
@@ -10,7 +12,7 @@ public class AbsenceListGUI extends JFrame{
         setResizable(false);
         // background Color
         getContentPane().setBackground(new java.awt.Color(40, 50, 68));
-        
+
         // set window to full screen withou affecting the sideBar
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -121,7 +123,7 @@ public class AbsenceListGUI extends JFrame{
         btnAbsenceList.setBackground(new java.awt.Color(42, 217, 152));
         btnAbsenceList.setBorder(null);
         btnAbsenceList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(btnAbsenceList);       
+        add(btnAbsenceList);
 
         JButton administrationLisButton = new JButton("Administration List");
         administrationLisButton.setBounds(-30, 250, 300, 50);
@@ -131,9 +133,9 @@ public class AbsenceListGUI extends JFrame{
         administrationLisButton.setBorder(null);
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
-        
-        if(role.equals("administration")){
-        	administrationLisButton.setVisible(false);
+
+        if (role.equals("administration")) {
+            administrationLisButton.setVisible(false);
         }
 
         // on hover change background color and text color
@@ -150,7 +152,7 @@ public class AbsenceListGUI extends JFrame{
 
             // on click open absence list
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new AbsenceListGUI(role);
+                new AdministrationListGUI(role);
                 dispose();
             }
         });
@@ -187,6 +189,137 @@ public class AbsenceListGUI extends JFrame{
             }
         });
 
+        /******* */
+        String[] columnNames = { "absID", "absNumber", "StudentID", "CourseID" };
+        Object[][] data = {
+                { "1", "1", "1", "1" },
+                { "2", "2", "2", "2" },
+                { "3", "3", "3", "3" },
+                { "4", "4", "4", "4" },
+                { "5", "5", "5", "5" },
+                { "6", "6", "6", "6" },
+                { "7", "7", "7", "7" },
+                { "8", "8", "8", "8" },
+                { "9", "9", "9", "9" },
+                { "10", "10", "10", "10" },
+                { "11", "11", "11", "11" },
+                { "12", "12", "12", "12" },
+                { "13", "13", "13", "13" },
+                { "14", "14", "14", "14" },
+                { "15", "15", "15", "15" },
+                { "16", "16", "16", "16" },
+                { "17", "17", "17", "17" },
+                { "18", "18", "18", "18" },
+                { "19", "19", "19", "19" },
+                { "20", "20", "20", "20" },
+                { "21", "21", "21", "21" },
+                { "22", "22", "22", "22" },
+                { "23", "23", "23", "23" },
+                { "24", "24", "24", "24" },
+                { "25", "25", "25", "25" },
+                { "26", "26", "26", "26" },
+                { "27", "27", "27", "27" },
+                { "28", "28", "28", "28" },
+                { "29", "29", "29", "29" },
+                { "30", "30", "30", "30" },
+                { "31", "31", "31", "31" },
+                { "32", "32", "32", "32" },
+                { "33", "33", "33", "33" },
+                { "34", "34", "34", "34" },
+                { "35", "35", "35", "35" },
+                { "36", "36", "36", "36" }
+        };
+
+        JTable table = new JTable(data, columnNames);
+        table.setBounds(290, 100, 1000, 800);
+        table.setBackground(new java.awt.Color(40, 50, 68));
+        table.setForeground(new java.awt.Color(255, 255, 255));
+        table.setFont(new java.awt.Font("Roboto", 2, 20));
+        table.setRowHeight(50);
+        table.setEnabled(false);
+        table.setShowGrid(true);
+        table.setGridColor(new java.awt.Color(42, 217, 152));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
+        table.setColumnSelectionAllowed(false);
+        table.setCellSelectionEnabled(false);
+        table.setBorder(null);
+        add(table);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setBounds(290, 100, 1000, 800);
+        scrollPane.setBackground(new java.awt.Color(40, 50, 68));
+        scrollPane.setForeground(new java.awt.Color(42, 217, 152));
+        scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
+        scrollPane.setBorder(null);
+        add(scrollPane);
+
+        // make a refresh button under the table
+        JButton btnRefresh = new JButton("Refresh");
+        btnRefresh.setBounds(290, 900, 280, 50);
+        btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+        btnRefresh.setFont(new java.awt.Font("Roboto", 2, 20));
+        btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+        btnRefresh.setBorder(null);
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(btnRefresh);
+
+        // on hover change background color and text color
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(50, 220, 194));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRefresh.setForeground(new java.awt.Color(34, 44, 62));
+                btnRefresh.setBackground(new java.awt.Color(42, 217, 152));
+            }
+        });
+
+        // on click refresh the table from the database
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    final String DB_URL = "jdbc:mysql://localhost/scolaritepi?serverTimezone=UTC";
+                    final String USERNAME = "root";
+                    final String PASSWORD = "";
+                    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                    // Connected to database successfully...
+                    Statement stmt = conn.createStatement();
+                    String sql = "SELECT * FROM person";
+                    ResultSet rs = stmt.executeQuery(sql);
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+                    int columnCount = rsmd.getColumnCount();
+                    String[] columnNames = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        columnNames[i] = rsmd.getColumnName(i + 1);
+                        model.setColumnIdentifiers(columnNames);
+                        String id, firstName, lastName, email, role, password;
+                        while (rs.next()) {
+                            id = rs.getString(1);
+                            firstName = rs.getString(2);
+                            lastName = rs.getString(3);
+                            email = rs.getString(4);
+                            role = rs.getString(5);
+                            password = rs.getString(6);
+                            String[] row = { id, firstName, lastName, email, role, password };
+                            model.addRow(row);
+                        }
+                        stmt.close();
+                        conn.close();
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Database connexion failed!");
+                    System.err.println(e.getMessage());
+                }
+            }
+        });
+
         setVisible(true);
-    } 
+    }
 }
