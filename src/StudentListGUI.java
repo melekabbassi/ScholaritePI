@@ -3,9 +3,9 @@ import javax.swing.table.DefaultTableModel;
 
 import java.sql.*;
 
-public class GroupListGUI extends JFrame {
+public class StudentListGUI extends JFrame {
 
-    public GroupListGUI(String role) {
+    public StudentListGUI(String role) {
         setTitle("ScolaritéPi");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +59,7 @@ public class GroupListGUI extends JFrame {
         });
 
         // make a menu item
-        JButton btnGroupList = new JButton("Group List");
+        JButton btnGroupList = new JButton("Student List");
         btnGroupList.setBounds(-30, 100, 300, 50);
         btnGroupList.setForeground(new java.awt.Color(34, 44, 62));
         btnGroupList.setFont(new java.awt.Font("Roboto", 2, 20));
