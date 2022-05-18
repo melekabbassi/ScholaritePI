@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javafx.scene.control.ScrollPane;
 
 import java.awt.Toolkit;
 import java.sql.*;
@@ -131,7 +130,7 @@ public class TeacherListGUI extends JFrame {
                 new AbsenceListGUI(role);
                 dispose();
             }
-        });           
+        });
 
         JButton administrationLisButton = new JButton("Administration List");
         administrationLisButton.setBounds(-30, 250, 300, 50);
@@ -141,9 +140,9 @@ public class TeacherListGUI extends JFrame {
         administrationLisButton.setBorder(null);
         administrationLisButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(administrationLisButton);
-        
-        if(role.equals("administration")){
-        	administrationLisButton.setVisible(false);
+
+        if (role.equals("administration")) {
+            administrationLisButton.setVisible(false);
         }
 
         // on hover change background color and text color
@@ -196,15 +195,17 @@ public class TeacherListGUI extends JFrame {
             }
         });
 
-        String[] columnNames = {"TeacherID", "First Name", "Last Name", "Email"};
-        Object[][] data = { /*{"1414", "John", "Doe", "jdoe@pi.tn"},
-                            { "1415", "Jane", "Doe", "jane@pi.tn"},
-                            { "1416", "Johnna", "Mika", "jmika@pi.tn"},
-                            { "1417", "John", "Doe", "aaa@pi.tn"},
-                            { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
-                            { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
-                            { "1420", "John", "Doe", "aaaadddd@pi.tn"}*/
-                        };
+        String[] columnNames = { "TeacherID", "First Name", "Last Name", "Email" };
+        Object[][] data = { /*
+                             * {"1414", "John", "Doe", "jdoe@pi.tn"},
+                             * { "1415", "Jane", "Doe", "jane@pi.tn"},
+                             * { "1416", "Johnna", "Mika", "jmika@pi.tn"},
+                             * { "1417", "John", "Doe", "aaa@pi.tn"},
+                             * { "1418", "Jane", "Doe", "aaaaaa@pi.tn"},
+                             * { "1419", "Johnna", "Mika", "bbbbb@pi.tn"},
+                             * { "1420", "John", "Doe", "aaaadddd@pi.tn"}
+                             */
+        };
 
         JTable table = new JTable(data, columnNames);
         table.setBounds(290, 100, 1000, 800);
@@ -220,7 +221,7 @@ public class TeacherListGUI extends JFrame {
         table.setColumnSelectionAllowed(false);
         table.setCellSelectionEnabled(false);
         table.setBorder(null);
-        add(table);      
+        add(table);
 
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
@@ -230,7 +231,7 @@ public class TeacherListGUI extends JFrame {
         scrollPane.setFont(new java.awt.Font("Roboto", 2, 20));
         scrollPane.setBorder(null);
         add(scrollPane);
-        
+
         // make a table header
         JLabel lblTableHeader = new JLabel("Teacher List");
         lblTableHeader.setBounds(290, 50, 900, 50);
@@ -291,7 +292,7 @@ public class TeacherListGUI extends JFrame {
                             email = rs.getString(4);
                             role = rs.getString(5);
                             password = rs.getString(6);
-                            String[] row = {id, firstName, lastName, email, role, password};
+                            String[] row = { id, firstName, lastName, email, role, password };
                             model.addRow(row);
                         }
                         stmt.close();
@@ -304,7 +305,6 @@ public class TeacherListGUI extends JFrame {
                 }
             }
         });
-
 
         // make a search bar
         JTextField txtSearch = new JTextField();
