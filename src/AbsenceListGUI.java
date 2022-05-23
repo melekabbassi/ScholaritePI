@@ -125,8 +125,36 @@ public class AbsenceListGUI extends JFrame {
         btnAbsenceList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnAbsenceList);
 
+        JButton resultsListButton = new JButton("Results List");
+        resultsListButton.setBounds(-30, 250, 300, 50);
+        resultsListButton.setForeground(new java.awt.Color(34, 44, 62));
+        resultsListButton.setFont(new java.awt.Font("Roboto", 2, 20));
+        resultsListButton.setBackground(new java.awt.Color(42, 217, 152));
+        resultsListButton.setBorder(null);
+        resultsListButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(resultsListButton);
+
+        // on hover change background color and text color
+        resultsListButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                resultsListButton.setForeground(new java.awt.Color(34, 44, 62));
+                resultsListButton.setBackground(new java.awt.Color(42, 217, 152));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                resultsListButton.setForeground(new java.awt.Color(164, 174, 194));
+                resultsListButton.setBackground(new java.awt.Color(34, 44, 62));
+            }
+
+            // on click open absence list
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new ResultsListGUI(role);
+                dispose();
+            }
+        });
+
         JButton administrationLisButton = new JButton("Administration List");
-        administrationLisButton.setBounds(-30, 250, 300, 50);
+        administrationLisButton.setBounds(-30, 300, 300, 50);
         administrationLisButton.setForeground(new java.awt.Color(34, 44, 62));
         administrationLisButton.setFont(new java.awt.Font("Roboto", 2, 20));
         administrationLisButton.setBackground(new java.awt.Color(42, 217, 152));
@@ -227,7 +255,7 @@ public class AbsenceListGUI extends JFrame {
                 
 
         // make a table header
-        JLabel lblTableHeader = new JLabel("Student List");
+        JLabel lblTableHeader = new JLabel("Absence List");
         lblTableHeader.setBounds(290, 50, 900, 50);
         lblTableHeader.setForeground(new java.awt.Color(164, 174, 194));
         lblTableHeader.setFont(new java.awt.Font("Roboto", 2, 30));
